@@ -1,11 +1,10 @@
 package carrot.market.config;
 
-import carrot.market.common.security.filter.CustomAuthorizationFilter;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import carrot.market.util.jwt.JwtAuthenticationFilter;
+import carrot.market.util.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -14,26 +13,20 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-import java.io.IOException;
-
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class SecurityConfig {
-
     @Value("${security.bcrypt.strength}")
     private int strength;
 
-    private final CustomAuthorizationFilter customAuthorizationFilter;
+    private final JwtTokenProvider jwtTokenProvider;
     private final CorsConfig corsConfig;
 
     /**
@@ -50,29 +43,18 @@ public class SecurityConfig {
             .csrf((csrfConfig) -> csrfConfig.disable())
             .authorizeHttpRequests((authorizeRequests) ->
                             authorizeRequests
-//                                .requestMatchers(PathRequest.toH2Console()).permitAll()
-                                    .requestMatchers("/", "/api/v1/auth/**", "/api/v1/search/**", "/file/**").permitAll()
-                                    .requestMatchers(HttpMethod.GET, "/api/v1/board/**", "/api/v1/user/*").permitAll()
+                            .requestMatchers(PathRequest.toH2Console()).permitAll()
+                                    .requestMatchers("/**").permitAll()
                                     .anyRequest().authenticated()
-            )
-            .exceptionHandling((exceptionConfig) ->
-                    exceptionConfig.authenticationEntryPoint(new FailedAuthenticationEntryPoint()))
-            .addFilterBefore(customAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
+            );
 
+        // JWT 필터 등록
+        http.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(strength);
-    }
-}
-
-class FailedAuthenticationEntryPoint implements AuthenticationEntryPoint {
-    @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        response.setContentType("application/json");
-        response.setStatus(HttpServletResponse.SC_FORBIDDEN);   // 403 권한없음
-        response.getWriter().write("{ \"code\": \"NP\", \"message\": \"Authorization Failed\" }");
     }
 }

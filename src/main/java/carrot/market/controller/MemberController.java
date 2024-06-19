@@ -1,21 +1,20 @@
-package carrot.market.common.security.provider.controller;
+package carrot.market.controller;
 
-import carrot.market.common.security.auth.PrincipalDetails;
+import carrot.market.dto.member.LoginDto;
 import carrot.market.dto.member.MemberDto;
 import carrot.market.entity.member.Member;
 import carrot.market.service.LoginService;
 import carrot.market.service.MemberService;
+import carrot.market.util.jwt.JwtToken;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import static carrot.market.common.HttpStatusResponseEntity.RESPONSE_CONFLICT;
-import static carrot.market.common.HttpStatusResponseEntity.RESPONSE_OK;
+import static carrot.market.common.HttpStatusResponseEntity.*;
 
 
 @RestController
@@ -65,7 +64,13 @@ public class MemberController {
      * 로그인
      */
     @PostMapping("/login")
-    public ResponseEntity<HttpStatus> login(@AuthenticationPrincipal PrincipalDetails userDetails) {
-        return null;
+    public JwtToken login(@RequestBody @Valid LoginDto loginDto) {
+        String username = loginDto.getUsername();
+        String password = loginDto.getPassword();
+        JwtToken jwtToken = memberService.signIn(username, password);
+        log.info("request username = {}, password = {}", username, password);
+        log.info("jwtToken accessToken = {}, refreshToken = {}", jwtToken.getAccessToken(), jwtToken.getRefreshToken());
+
+        return jwtToken;
     }
 }
