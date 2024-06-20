@@ -1,6 +1,7 @@
 package carrot.market.service;
 
 import carrot.market.entity.member.Member;
+import carrot.market.exception.MemberNotFoundException;
 import carrot.market.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
@@ -20,9 +21,13 @@ public class MemberDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
+        /**
+         * 조회 성공 -> Authentication 객체에 들어갈 UserDetails 저장
+         * 조회 실패 -> MemberNotFoundException 예외 처리
+         */
         UserDetails userDetails = memberRepository.findMemberByEmail(email)
                 .map(this::createUserDetails)
-                .orElseThrow(() -> new UsernameNotFoundException("해당하는 회원을 찾을 수 없습니다."));
+                .orElseThrow(() -> new MemberNotFoundException("해당하는 회원을 찾을 수 없습니다."));
 
         return userDetails;
     }

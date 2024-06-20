@@ -1,4 +1,4 @@
-package carrot.market.dto.member;
+package carrot.market.dto.request.member;
 
 import carrot.market.entity.member.Member;
 import jakarta.validation.constraints.Email;
