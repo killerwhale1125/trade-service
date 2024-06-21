@@ -44,11 +44,10 @@ public class SecurityConfig {
             .authorizeHttpRequests((authorizeRequests) ->
                             authorizeRequests.requestMatchers(PathRequest.toH2Console()).permitAll()
                             .requestMatchers("/**").permitAll()
-                            .anyRequest().authenticated()
-            );
+                            .anyRequest().authenticated())
+             .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
 
         // JWT 필터 등록 -> JWT 인증으로 인해 Authentication 객체가 인증된 객체인지 아닌지 컨트롤러 호출 전 판별됨
-        http.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
