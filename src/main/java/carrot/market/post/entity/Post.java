@@ -2,6 +2,7 @@ package carrot.market.post.entity;
 
 import carrot.market.common.BaseTimeEntity;
 import carrot.market.member.entity.Member;
+import carrot.market.post.dto.PostRequestDto;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -70,5 +71,22 @@ public class Post extends BaseTimeEntity {
         this.location = location;
         this.createdTime = createdTime;
         this.modifiedTime = modifiedTime;
+    }
+
+    public void addCategory(Category category) {
+        this.category = category;
+    }
+
+    public void updatePost(PostRequestDto postRequest) {
+        this.title = postRequest.getTitle();
+        this.content = postRequest.getContent();
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public void removePost() {
+        this.removed = true;
     }
 }
