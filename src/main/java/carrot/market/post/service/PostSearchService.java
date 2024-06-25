@@ -78,9 +78,9 @@ public class PostSearchService {
     )
     public PostPageResponseDto findAllByCategory(String category, Member member, Pageable pageable) {
         Address address = member.getAddress();
-        postRepository.findAllByCategory(category, address.getState(), address.getCity(), address.getTown(), pageable);
+        Page<Post> posts = postRepository.findAllByCategory(category, address.getState(), address.getCity(), address.getTown(), pageable);
 
-        return null;
+        return getPostPageRes(posts, pageable);
     }
 
     private PostPageResponseDto getPostPageRes(Page<Post> posts, Pageable pageable) {

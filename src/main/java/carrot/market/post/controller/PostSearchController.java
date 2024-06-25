@@ -29,18 +29,25 @@ public class PostSearchController {
     @GetMapping
     public ResponseEntity<PostPageResponseDto> getPosts(Authentication authentication, Pageable pageable) {
         Member member = memberService.findMemberByEmail(authentication.getName());
-        postSearchService.findAllByMemberAddress(member, pageable);
-        return null;
+        PostPageResponseDto page = postSearchService.findAllByMemberAddress(member, pageable);
+        return ResponseEntity.ok(page);
     }
 
+    /**
+     * 검색한 주소에 관련하여 게시물 리스트 조회
+     * 주소값을 받기 때문에 AOP 검증 X
+     */
     @GetMapping("/address")
     public ResponseEntity<PostPageResponseDto> getPostsByAddress(AddressRequestDto addressRequest, Pageable pageable) {
-        postSearchService.findAllByAddress(addressRequest, pageable);
-        return null;
+        PostPageResponseDto page = postSearchService.findAllByAddress(addressRequest, pageable);
+        return ResponseEntity.ok(page);
     }
 
+    /**
+     * 선택한 카테고리를 통하여 관련한 회원 주소 근처 게시물 검색
+     */
     @GetMapping("/categories")
-    public ResponseEntity<PostPageResponseDto> getTradePostsByCategory(@RequestParam("category") @NotEmpty String category,
+    public ResponseEntity<PostPageResponseDto> getPostsByCategory(@RequestParam("category") @NotEmpty String category,
                                                                     Authentication authentication,
                                                                     Pageable pageable) {
         Member member = memberService.findMemberByEmail(authentication.getName());
