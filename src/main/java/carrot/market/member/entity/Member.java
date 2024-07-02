@@ -19,7 +19,7 @@ import java.util.Collection;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member implements UserDetails {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MEMBER_ID")
     private Long id;
 

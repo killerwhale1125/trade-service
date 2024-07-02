@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class Image extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "IMAGE_ID")
     private Long id;
 

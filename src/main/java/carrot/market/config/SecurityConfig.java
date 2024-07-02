@@ -42,8 +42,7 @@ public class SecurityConfig {
             .httpBasic(HttpBasicConfigurer::disable)    // ID와 비밀번호를 직접 입력하여 서버에 인증하는 방식 비활성화
             .csrf((csrfConfig) -> csrfConfig.disable())
             .authorizeHttpRequests((authorizeRequests) ->
-                            authorizeRequests.requestMatchers(PathRequest.toH2Console()).permitAll()
-                            .requestMatchers("/**").permitAll()
+                            authorizeRequests.requestMatchers("/**").permitAll()
                             .anyRequest().authenticated())
              .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
 

@@ -79,6 +79,7 @@ dependencies {
 	// MySQL Connector
 	runtimeOnly 'com.mysql:mysql-connector-j'
 
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client:2.7.3'
 	// H2 Database
 	runtimeOnly 'com.h2database:h2'
 
