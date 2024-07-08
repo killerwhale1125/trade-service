@@ -106,3 +106,7 @@ sourceSets {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+jar {
+	archiveFileName = "danggn-${version}.jar"
+}
