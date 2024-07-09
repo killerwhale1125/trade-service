@@ -106,11 +106,3 @@ sourceSets {
 tasks.named('test') {
 	useJUnitPlatform()
 }
-
-jar {
-	archiveFileName = "danggn-${version}.jar"
-}
-
-springBoot {
-	mainClass = 'carrot.market.MarketApplication' // 여기에 본인의 메인 클래스를 정확히 지정
-}
