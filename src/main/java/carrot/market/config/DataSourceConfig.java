@@ -1,14 +1,11 @@
 package carrot.market.config;
 
-import carrot.market.common.properties.MasterDataSource;
-import carrot.market.common.properties.SlaveDataSource;
 import carrot.market.util.RoutingDataSource;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.*;
@@ -32,35 +29,16 @@ import static carrot.market.util.DatabaseType.*;
 @ComponentScan(basePackages = {"carrot.market"})
 public class DataSourceConfig {
 
-    private final MasterDataSource masterDataSource;
-    private final SlaveDataSource slaveDataSource;
-
-    private static final Logger logger = LoggerFactory.getLogger(DataSourceConfig.class);
-
     @Bean
+    @ConfigurationProperties(prefix = "spring.datasource.master")
     public DataSource masterDataSource() {
-        HikariDataSource dataSource = new HikariDataSource();
-        dataSource.setJdbcUrl(masterDataSource.getUrl());
-        dataSource.setUsername(masterDataSource.getUsername());
-        dataSource.setPassword(masterDataSource.getPassword());
-        dataSource.setDriverClassName(masterDataSource.getDriverClassName());
-        return dataSource;
+        return DataSourceBuilder.create().build();
     }
 
     @Bean
+    @ConfigurationProperties(prefix = "spring.datasource.slave")
     public DataSource slaveDataSource() {
-        HikariDataSource dataSource = new HikariDataSource();
-        dataSource.setJdbcUrl(slaveDataSource.getUrl());
-        dataSource.setUsername(slaveDataSource.getUsername());
-        dataSource.setPassword(slaveDataSource.getPassword());
-        dataSource.setDriverClassName(slaveDataSource.getDriverClassName());
-        return dataSource;
-    }
-
-    private void logDataSourceDetails(HikariDataSource dataSource, String dataSourceName) {
-        logger.debug("{} DataSource URL: {}", dataSourceName, dataSource.getJdbcUrl());
-        logger.debug("{} DataSource Username: {}", dataSourceName, dataSource.getUsername());
-        logger.debug("{} DataSource Driver Class Name: {}", dataSourceName, dataSource.getDriverClassName());
+        return DataSourceBuilder.create().build();
     }
 
     @Bean
