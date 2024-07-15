@@ -64,7 +64,7 @@
 
 <br>
 
-<div align="center"><img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F610e4875-7e8e-4d51-a2f3-655f7f94d406%2Fskills.png?table=block&id=f8a8ad0d-b98b-4f4a-9601-f9ce3f6c8d30&width=1910&userId=&cache=v2" width="80%"></div>
+<div align="center"><img src=""></div>
 
 <br>
 
