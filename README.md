@@ -1,5 +1,4 @@
 <p align="center">
-  <div align="center"><img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F20085652-2215-431f-96fe-0b6b4256248b%2F5709077d31ef3372a0bd877ef2f1122453f310b2342733932e9f6223ecc9a021.png?table=block&id=6e617988-e2f1-4cb8-97a4-39e554d77eaf&width=2160&userId=&cache=v2" width="15%"/></div>
   <br>  
   <div align="center"><img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F4fdd23a0-886e-4f5c-9448-14e8cd2dc9d8%2F0cf1d10235c37b2635c02719125da37cc1bd632518198b1e1da7f5a364156540.png?table=block&id=a5fce4ec-5eaa-4f13-984a-30f29b85f4d1&width=3330&userId=&cache=v2" width="40%"/></div>
 </p>
