@@ -4,7 +4,7 @@
 </p>
 
 
-<p align="center">"중고 거래부터 동네 정보까지"<br> <span>당근마켓</span>을 모티브로 만든 중고거래 플랫폼 API 서버 토이 프로젝트입니다.</p>
+<p align="center"><span>당근마켓</span>을 모티브로 만든 중고거래 플랫폼 API 서버 토이 프로젝트입니다.</p>
 
 <br>
 <br>
