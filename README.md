@@ -18,17 +18,15 @@
 
 ### 🥕 단순히 <span>당근마켓</span>의 기능을 위해 CRUD만 구현하는 방식은 이제 그만!
 
-* 실제 당근마켓이 대규모 트래픽을 장애없이 어떻게 처리하고 있는지 
-* 채팅과 실시간 푸시 알람 서비스는 어떻게 구현하였는지 
-* 유지보수성을 위한 객체지향적 설계는 어떻게 이루어져야 하는지
-* 냄새나는 코드를 제거해서 읽기 좋은 코드를 만들기 위해서는 어떻게해야 하는지
+* 대규모 트래픽을 어떤 방식으로 처리하고있는지
+* 당근 마켓에 필요한 오브젝트들의 상호작용을 어떻게 객체지향적으로 풀어냈는지
 
 대용량 트래픽에도 장애없이 동작할 수 있도록 성능과 유지보수성을 고려한 서비스를 만들기 위해서, 읽기 좋은 코드 객체지향적 설계를 위해 노력하였습니다.
 
 <br>
 <br>
 
-### 🥕 기술적 이슈와 해결 과정 
+### 🥕 프로젝트 수행 중 발생한 이슈 및 트러블 슈팅
 
 * 분산 서버 환경에서 세션 불일치 문제 해결하기
     * [사용자가 증가하면 서버를 어떻게 확장해야 할까?](https://see-one.tistory.com/4)
@@ -58,7 +56,7 @@
 <br>
 
 ### 🥕 프로젝트 전체 구성도
-<div align="center"><img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F0cc595f4-892b-417b-af33-35dfa0990515%2FUntitled.png?table=block&id=1efceeeb-099a-44bd-b3dc-6fe55ce66e26&width=3580&userId=&cache=v2"></div>
+<div align="center"><img src=""></div>
 <br>
 <br>
 
@@ -73,4 +71,4 @@
 ### 🥕 프로젝트 화면 구성도 
 
 <br>
-<div align="center"><img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F4dbc4761-ed47-4ef3-a2b7-87bcdcebcda0%2FUntitled.png?table=block&id=bec9e5a1-9037-46cc-868d-4134d7f9f614&width=3540&userId=&cache=v2">
+<div align="center"><img src="">
