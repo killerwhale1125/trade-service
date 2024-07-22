@@ -13,7 +13,7 @@ import static carrot.market.config.CacheKeyConfig.CATEGORY;
 @RequiredArgsConstructor
 public class CategoryService {
 
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
     /**
      * @Cacheable를 사용하여 메서드의 반환값을 CATEGORY라는 캐시에 저장
@@ -25,6 +25,5 @@ public class CategoryService {
     public Category findCategoryByName(String categoryName) {
         return categoryRepository.findCategoryByCategoryName(categoryName)
                 .orElseThrow(() -> new CategoryNotFoundException(categoryName));
-
     }
 }

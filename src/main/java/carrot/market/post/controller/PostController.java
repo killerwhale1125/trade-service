@@ -35,7 +35,7 @@ public class PostController {
     }
 
     /**
-     * 게시물 조회
+     * 게시물 상세 조회
      */
     @GetMapping("/{postId}")
     public ResponseEntity<PostResponseDto> findPost(@PathVariable Long postId) {
@@ -59,6 +59,9 @@ public class PostController {
         return RESPONSE_OK;
     }
 
+    /**
+     * 게시물 삭제
+     */
     @DeleteMapping("/{postId}")
     public ResponseEntity<HttpStatus> deletePost(@PathVariable Long postId, Authentication authentication) {
         Member member = memberService.findMemberByEmail(authentication.getName());

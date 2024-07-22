@@ -30,19 +30,22 @@ public class PostSearchService {
     /**
      * 회원 주소에 관련하여 게시물 리스트 조회
      * @AreaInfoRequired 를 통하여 메소드 호출 전 AOP로 회원 주소 유효성 검증
+     * @Cacheable을 통하여 Redis에 아래 설정에 맞는 캐싱된 값이 존재 할 경우 메소드를 실행하지 않고 캐싱된 값을 반환한다.
      */
     @AreaInfoRequired
     @Transactional(readOnly = true)
     @Cacheable(
-            key = "#member.getAddress().state + '.' + #member.getAddress().city + '.' + #member.getAddress().town",
-            value = POST,
+            // 파라미터로 받은 Member의 주소 정보를 조합하여 key 지정
+            key = "#member.getAddress().state + '.' + #member.getAddress().city + '.' + #member.getAddress().town", 
+            value = POST,   // 캐시 이름 지정
             cacheManager = "redisCacheManager",
-            condition = "#pageable.pageNumber == 0"
+            condition = "#pageable.pageNumber == 0" // page가 0일 경우만 캐시 사용
     )
     public PostPageResponseDto findAllByMemberAddress(Member member, Pageable pageable) {
         Address address = member.getAddress();
 
-        Page<Post> posts = postRepository.findAllByMemberAddress(address.getState(), address.getCity(), address.getTown(), pageable);
+        Page<Post> posts
+                = postRepository.findAllByMemberAddress(address.getState(), address.getCity(), address.getTown(), pageable);
 
         return getPostPageRes(posts, pageable);
     }
@@ -53,7 +56,7 @@ public class PostSearchService {
      */
     @Transactional(readOnly = true)
     @Cacheable(
-            key = "#member.getAddress().state + '.' + #member.getAddress().city + '.' + #member.getAddress().town",
+            key = "#addressRequest.getState() + '.' + #addressRequest.getCity() + '.' + #addressRequest.getTown()",
             value = POST,
             cacheManager = "redisCacheManager",
             condition = "#pageable.pageNumber == 0"
@@ -84,6 +87,9 @@ public class PostSearchService {
     }
 
     private PostPageResponseDto getPostPageRes(Page<Post> posts, Pageable pageable) {
+        /**
+         *
+         */
         List<PostResponseDto> response = posts.getContent()
                 .stream()
                 .map(PostResponseDto::of)

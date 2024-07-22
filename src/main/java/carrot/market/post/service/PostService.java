@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static carrot.market.config.CacheKeyConfig.POST;
 
@@ -29,13 +30,15 @@ public class PostService {
     }
 
     /**
-     * 게시물 추가
-     * 카테고리는 캐시 값 조회
+     * 게시물 생성
+     * 게시물 생성 시 카테고리는 필수적으로 입력해야하기 때문에 캐싱 적용
      */
+    @Transactional
     public void createNewPost(PostRequestDto postRequest, String email) {
         Member member = memberRepository.findMemberByEmail(email).orElseThrow(MemberNotFoundException::new);
 
         Post post = postRequest.toEntity(member);
+        /** 카테고리 캐시 조회 및 저장 **/
         Category category = categoryService.findCategoryByName(postRequest.getCategory());
 
         post.addCategory(category);

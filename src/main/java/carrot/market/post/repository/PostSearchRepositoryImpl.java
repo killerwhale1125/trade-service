@@ -1,8 +1,6 @@
 package carrot.market.post.repository;
 
-import carrot.market.post.entity.Address;
 import carrot.market.post.entity.Post;
-import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;

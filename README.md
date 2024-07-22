@@ -28,11 +28,9 @@
 
 ### 🥕 프로젝트 수행 중 발생한 이슈 및 트러블 슈팅
 
-* 분산 서버 환경에서 세션 불일치 문제 해결하기
-    * [사용자가 증가하면 서버를 어떻게 확장해야 할까?](https://see-one.tistory.com/4)
-    * [분산서버 환경에서 발생할 수 있는 Session 불일치 문제를 해결해봅시다 (1) - Sticky Session](https://see-one.tistory.com/10)
-<!--     * [분산서버 환경에서 발생할 수 있는 Session 불일치 문제를 해결해봅시다 (2) - Session Clustering]() <img src="https://img.shields.io/badge/-WRITING-gray"><br> 
-    * [분산서버 환경에서 발생할 수 있는 Session 불일치 문제를 해결해봅시다 (3) - Redis와 Memcached]() <img src="https://img.shields.io/badge/-WRITING-gray"><br>  -->
+* DB
+    * [클라이언트의 증가에 따라서 서버를 어떻게 확장해야할까?](https://fluorescent-sceptre-6b9.notion.site/626c4d1235184c1c83913a6cca1ad819)
+    * [어떤 데이터를 캐싱해야할까?](https://fluorescent-sceptre-6b9.notion.site/e5e730e11a4e4c40a1f1b2569c950ac4)
 <!-- * 중복되는 로그인 체크 기능을 인터셉터를 이용해서 구현하기 
     * [사용자 로그인 체크는 어디서 해야할까요 - Filter와 Interceptor]() <img src="https://img.shields.io/badge/-WRITING-gray"><br>  -->
 * `@Email` Validation이 정상적으로 동작하지 않는 문제 해결하기

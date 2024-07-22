@@ -38,6 +38,8 @@ public class RedisCacheConfig {
 
     /**
      * Redis에 저장될 객체를 JSON으로 직렬화하여 변경할 때 사용할 ObjectMapper를 설정
+     * activateDefaultTyping(BasicPolymorphicTypeValidator 설정으로 실제 타입을 JSON에 직렬화할 때 포함한다.
+     * 따라서 역직렬화로 가져와도 타입 확인이 가능하다
      **/
     @Bean
     public ObjectMapper redisObjectMapper() {

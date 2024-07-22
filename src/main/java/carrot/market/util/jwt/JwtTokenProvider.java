@@ -162,7 +162,7 @@ public class JwtTokenProvider {
     /**
      * Refresh 토큰 생성
      */
-    public String createRefreshToken(Authentication authentication){
+    public String createRefreshToken(Authentication authentication) {
         Claims claims = Jwts.claims().setSubject(authentication.getName());
         Date now = new Date();
         Date expireDate = new Date(now.getTime() + refreshExpirationTime);
@@ -196,6 +196,7 @@ public class JwtTokenProvider {
     public JwtToken refreshTokens(String refreshToken) {
         /**
          * Refresh 토큰 검증
+         * 토큰 값이 존재하는데 검증 실패 시 재 로그인 필요
          */
         validateToken(refreshToken);
         
@@ -236,9 +237,6 @@ public class JwtTokenProvider {
      */
     private Authentication getAuthenticationFromClaims(Claims claims) {
         String username = claims.getSubject();
-//        Collection<? extends GrantedAuthority> authorities = Arrays.stream(claims.get("auth").toString().split(","))
-//                .map(SimpleGrantedAuthority::new)
-//                .collect(Collectors.toList());
 
         // 사용자 인증만을 위해 authorities를 빈 리스트로 설정
         List<GrantedAuthority> authorities = Collections.emptyList();
