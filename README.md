@@ -22,7 +22,7 @@
 
 * [클라이언트의 증가에 따라서 서버를 어떻게 확장해야할까?](https://fluorescent-sceptre-6b9.notion.site/626c4d1235184c1c83913a6cca1ad819)
 * [부하를 줄이기 위하여 어떤 조건의 데이터를 Redis로 캐싱하는게 좋을까?](https://fluorescent-sceptre-6b9.notion.site/e5e730e11a4e4c40a1f1b2569c950ac4)
-* [분산 서버 환경의 인증을 위한 JWT 활용 및 토큰 탈취 대응의 RTR 방식](https://fluorescent-sceptre-6b9.notion.site/e5e730e11a4e4c40a1f1b2569c950ac4)
+* [분산 서버 환경에서의 클라이언트 토큰 인증 방식과 토큰 탈취 대응을 위한 RTR 방식](https://fluorescent-sceptre-6b9.notion.site/e5e730e11a4e4c40a1f1b2569c950ac4)
 * [Spring Data Jpa 프로젝트에 Mutli DataSource와 RoutingDataSource 적용하기]()
 
 ### 프로젝트 전체 구성도
