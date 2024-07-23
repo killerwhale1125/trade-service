@@ -23,18 +23,10 @@
 
 ### 🥕 프로젝트 수행 중 발생한 이슈 및 트러블 슈팅
 
-* DB
-    * [클라이언트의 증가에 따라서 서버를 어떻게 확장해야할까?](https://fluorescent-sceptre-6b9.notion.site/626c4d1235184c1c83913a6cca1ad819)
-    * [어떤 데이터를 캐싱해야할까?](https://fluorescent-sceptre-6b9.notion.site/e5e730e11a4e4c40a1f1b2569c950ac4)
-<!-- * 중복되는 로그인 체크 기능을 인터셉터를 이용해서 구현하기 
-    * [사용자 로그인 체크는 어디서 해야할까요 - Filter와 Interceptor]() <img src="https://img.shields.io/badge/-WRITING-gray"><br>  -->
-* RDBMS의 가용성과 부하 분산을 위해 데이터베이스 이중화 적용하기 
-    * [RDBMS 서버의 부하 분산과 가용성을 위해 이중화를 적용해봅시다]() <img src="https://img.shields.io/badge/-WRITING-gray"><br>
-    * [Spring Data Jpa 프로젝트에 Mutli DataSource와 RoutingDataSource 적용하기]() <img src="https://img.shields.io/badge/-WRITING-gray"><br>
-    * [Spring 빈들의 순환참조가 발생하는 이유와 순환참조 문제 해결하기]() <img src="https://img.shields.io/badge/-WRITING-gray"><br>
-
+* [클라이언트의 증가에 따라서 서버를 어떻게 확장해야할까?](https://fluorescent-sceptre-6b9.notion.site/626c4d1235184c1c83913a6cca1ad819)
+* [어떤 데이터를 캐싱해야할까?](https://fluorescent-sceptre-6b9.notion.site/e5e730e11a4e4c40a1f1b2569c950ac4)
+* [Spring Data Jpa 프로젝트에 Mutli DataSource와 RoutingDataSource 적용하기]() <img src="https://img.shields.io/badge/-WRITING-gray"><br>
 <br>
-
 
 <br>
 
