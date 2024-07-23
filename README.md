@@ -22,7 +22,7 @@
 
 * [클라이언트의 증가에 따라서 서버를 어떻게 확장해야할까?](https://fluorescent-sceptre-6b9.notion.site/626c4d1235184c1c83913a6cca1ad819)
 * [부하를 줄이기 위하여 어떤 조건의 데이터를 캐싱하는게 좋을지?](https://fluorescent-sceptre-6b9.notion.site/e5e730e11a4e4c40a1f1b2569c950ac4)
-* [Spring Data Jpa 프로젝트에 Mutli DataSource와 RoutingDataSource 적용하기]() <img src="https://img.shields.io/badge/-WRITING-gray"><br>
+* [Spring Data Jpa 프로젝트에 Mutli DataSource와 RoutingDataSource 적용하기]()
 
 ### 프로젝트 전체 구성도
 ![image](https://github.com/user-attachments/assets/f36e2db9-4d73-431f-bb00-9b07e5f03812)
