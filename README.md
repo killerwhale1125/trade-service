@@ -25,7 +25,7 @@
 * [분산 서버 환경에서의 클라이언트 토큰 인증 방식과 토큰 탈취 대응을 위한 RTR 방식](https://fluorescent-sceptre-6b9.notion.site/e5e730e11a4e4c40a1f1b2569c950ac4)
 * [Spring Data Jpa 프로젝트에 Mutli DataSource와 RoutingDataSource 적용하기]()
 
-* 그 밖에 수행 기록 : [notion link](https://fluorescent-sceptre-6b9.notion.site/b0cf9a22d63541ea930d7b20b51d2b57)
+* 그 밖에 수행 기록 : [notion link Click!](https://fluorescent-sceptre-6b9.notion.site/b0cf9a22d63541ea930d7b20b51d2b57)
 
 ### 프로젝트 전체 구성도
 ![image](https://github.com/user-attachments/assets/f36e2db9-4d73-431f-bb00-9b07e5f03812)
