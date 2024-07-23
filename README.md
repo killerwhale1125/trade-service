@@ -31,15 +31,9 @@
 <br>
 
 ### 사용한 기술 스택
+![image](https://github.com/user-attachments/assets/5f9117e7-82ad-49c4-95bb-58d6592d9f56)
 
 
 <br>
 
 <div align="center"><img src=""></div>
-
-<br>
-
-### 🥕 프로젝트 화면 구성도 
-
-<br>
-<div align="center"><img src="">
