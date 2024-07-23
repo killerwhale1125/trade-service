@@ -26,14 +26,14 @@
 <br>
 
 ### 🥕 프로젝트 전체 구성도
-<div align="center"><img src=""></div>
+<div align="center">![image](https://github.com/user-attachments/assets/3ab8b434-f892-4dd3-b135-038756487f5f)</div>
 
 
 <br>
 <br>
 
 ### 🥕 사용한 기술 스택
-![image](https://github.com/user-attachments/assets/3ab8b434-f892-4dd3-b135-038756487f5f)
+
 
 <br>
 
