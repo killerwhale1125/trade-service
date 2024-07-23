@@ -20,8 +20,8 @@
 
 ### 프로젝트 수행 기록 및 이슈
 
-* [클라이언트의 증가에 따라서 서버를 어떻게 확장해야할까?]([https://fluorescent-sceptre-6b9.notion.site/626c4d1235184c1c83913a6cca1ad819](https://fluorescent-sceptre-6b9.notion.site/626c4d1235184c1c83913a6cca1ad819))
-* [부하를 줄이기 위하여 어떤 조건의 데이터를 Redis로 캐싱하는게 좋을까?]([https://fluorescent-sceptre-6b9.notion.site/e5e730e11a4e4c40a1f1b2569c950ac4](https://fluorescent-sceptre-6b9.notion.site/e5e730e11a4e4c40a1f1b2569c950ac4))
+* [클라이언트의 증가에 따라서 서버를 어떻게 확장해야할까?](https://fluorescent-sceptre-6b9.notion.site/626c4d1235184c1c83913a6cca1ad819)
+* [부하를 줄이기 위하여 어떤 조건의 데이터를 Redis로 캐싱하는게 좋을까?](https://fluorescent-sceptre-6b9.notion.site/e5e730e11a4e4c40a1f1b2569c950ac4)
 * [Spring Data Jpa 프로젝트에 Mutli DataSource와 RoutingDataSource 적용하기]()
 
 ### 프로젝트 전체 구성도
