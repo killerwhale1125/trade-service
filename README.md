@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/f36e2db9-4d73-431f-bb00-9b07e5f03812)
+
 <br>
 <br>
 <p align="center"><span>당근마켓</span>을 모티브로 만든 중고거래 플랫폼 API 서버 토이 프로젝트입니다.</p>
@@ -26,7 +26,7 @@
 <br>
 
 ### 🥕 프로젝트 전체 구성도
-<div align="center">![image](https://github.com/user-attachments/assets/3ab8b434-f892-4dd3-b135-038756487f5f)</div>
+![image](https://github.com/user-attachments/assets/f36e2db9-4d73-431f-bb00-9b07e5f03812)
 
 
 <br>
