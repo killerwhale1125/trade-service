@@ -1,13 +1,5 @@
 
-<br>
-<br>
 <p align="center"><span>당근마켓</span>을 모티브로 만든 중고거래 플랫폼 API 서버 토이 프로젝트입니다.</p>
-
-### 프로젝트 전체 구성도
-![image](https://github.com/user-attachments/assets/f36e2db9-4d73-431f-bb00-9b07e5f03812)
-
-<br>
-<br>
 
 ### 클라이언트의 수가 급격히 증가하고 있는 <span>당근마켓</span>은 어떻게 서비스를 하고있을까?
 <p>
@@ -28,6 +20,8 @@
 
 <br>
 
+### 프로젝트 전체 구성도
+![image](https://github.com/user-attachments/assets/f36e2db9-4d73-431f-bb00-9b07e5f03812)
 
 <br>
 <br>
