@@ -1,8 +1,3 @@
-<p align="center">
-  <br>  
-  <div align="center"><img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F4fdd23a0-886e-4f5c-9448-14e8cd2dc9d8%2F0cf1d10235c37b2635c02719125da37cc1bd632518198b1e1da7f5a364156540.png?table=block&id=a5fce4ec-5eaa-4f13-984a-30f29b85f4d1&width=3330&userId=&cache=v2" width="40%"/></div>
-</p>
-
 
 <p align="center"><span>당근마켓</span>을 모티브로 만든 중고거래 플랫폼 API 서버 토이 프로젝트입니다.</p>
 
