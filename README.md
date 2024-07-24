@@ -23,6 +23,7 @@
 * [클라이언트의 증가에 따라서 서버를 어떻게 확장해야할까?](https://fluorescent-sceptre-6b9.notion.site/626c4d1235184c1c83913a6cca1ad819)
 * [부하를 줄이기 위하여 어떤 조건의 데이터를 Redis로 캐싱하는게 좋을까?](https://fluorescent-sceptre-6b9.notion.site/e5e730e11a4e4c40a1f1b2569c950ac4)
 * [서버 다중화 환경에서의 세션 불일치 문제](https://fluorescent-sceptre-6b9.notion.site/b0ca0b7162b748ebb5116f3193a28a27)
+* [토큰 탈취 보안성을 높이기 위한 Redis RTR방식](https://fluorescent-sceptre-6b9.notion.site/RTR-be97e813135c42e7a2a25ed9f85c8f21)
 * [Spring Data Jpa 프로젝트에 Mutli DataSource와 RoutingDataSource 적용하기]()
 
 * 그 밖에 수행 기록 : [notion link Click!](https://fluorescent-sceptre-6b9.notion.site/b0cf9a22d63541ea930d7b20b51d2b57)
