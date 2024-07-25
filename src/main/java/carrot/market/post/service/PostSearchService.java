@@ -74,7 +74,7 @@ public class PostSearchService {
     @AreaInfoRequired
     @Transactional(readOnly = true)
     @Cacheable(
-            key = "#member.getAddress().state + '.' + #member.getAddress().city + '.' + #member.getAddress().town + '.' + #category",
+            key = "#addressRequest.getState() + '.' + #addressRequest.getCity() + '.' + #addressRequest.getTown() + '.' + #category",
             value = POST,
             cacheManager = "redisCacheManager",
             condition = "#pageable.pageNumber == 0"
