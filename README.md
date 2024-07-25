@@ -1,72 +1,35 @@
+
 <p align="center">
-  <br>  
-  <div align="center"><img src="https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F4fdd23a0-886e-4f5c-9448-14e8cd2dc9d8%2F0cf1d10235c37b2635c02719125da37cc1bd632518198b1e1da7f5a364156540.png?table=block&id=a5fce4ec-5eaa-4f13-984a-30f29b85f4d1&width=3330&userId=&cache=v2" width="40%"/></div>
+  <div align="center"><img src="https://github.com/user-attachments/assets/2a8795ac-2417-4313-935a-e5a95bdb285d"/></div>
 </p>
 
+<p align="center"><span>당근마켓</span>을 클론하여 진행한 중고거래 플랫폼 API 서버 토이 프로젝트입니다.</p>
 
-<p align="center"><span>당근마켓</span>을 모티브로 만든 중고거래 플랫폼 API 서버 토이 프로젝트입니다.</p>
-
-<br>
-<br>
-
-### 🥕 월 1000만명 이상 사용하고 있는 <span>당근마켓</span>은 어떻게 서비스를 하고있을까?
+### <span>당근마켓</span>같은 서비스는 어떤 방식으로 구성되어 있을까?
 <p>
 * 당근마켓은 어떻게 수 많은 사용자들에게 서비스를 제공하고있을까? <br>
-* 당근마켓은 어떻게 대용량의 트래픽을 견디고 있을까? <br>이러한 궁금증으로 인해 직접 당근마켓 서버를 간단히 구현해보는 프로젝트를 진행하게 되었습니다.<p>
+* 당근마켓은 어떻게 대용량의 트래픽을 견디고 있을까? 
+  <br>
+  <br>
+  이러한 궁금증으로 인해 당근마켓 서버를 간단히 구현해보고 접해보는 프로젝트를 진행하게 되었습니다.<p>
 
-<br>
+### 프로젝트의 어떤 부분에 중점을 두었는지?
 
-### 🥕 단순히 <span>당근마켓</span>의 기능을 위해 CRUD만 구현하는 방식은 이제 그만!
+* 대용량 트래픽에 어떤 방식을 도입하고 설계하여 조금이라도 부하를 줄일 수 있을지?
+* 최소한의 객체만으로 어떻게 객체지향적으로 설계할지
 
-* 대규모 트래픽을 어떤 방식으로 처리하고있는지
-* 당근 마켓에 필요한 오브젝트들의 상호작용을 어떻게 객체지향적으로 풀어냈는지
+### 프로젝트 수행 기록 및 이슈
 
-대용량 트래픽에도 장애없이 동작할 수 있도록 성능과 유지보수성을 고려한 서비스를 만들기 위해서, 읽기 좋은 코드 객체지향적 설계를 위해 노력하였습니다.
+* [클라이언트의 증가에 따라서 서버를 어떻게 확장해야할까?](https://fluorescent-sceptre-6b9.notion.site/626c4d1235184c1c83913a6cca1ad819)
+* [부하를 줄이기 위하여 어떤 조건의 데이터를 Redis로 캐싱하는게 좋을까?](https://fluorescent-sceptre-6b9.notion.site/e5e730e11a4e4c40a1f1b2569c950ac4)
+* [서버 다중화 환경에서의 세션 불일치 문제](https://fluorescent-sceptre-6b9.notion.site/b0ca0b7162b748ebb5116f3193a28a27)
+* [Transaction에 따른 커넥션 라우팅]()
 
-<br>
-<br>
+* 그 밖에 수행 기록 : [notion link Click!](https://fluorescent-sceptre-6b9.notion.site/b0cf9a22d63541ea930d7b20b51d2b57)
 
-### 🥕 프로젝트 수행 중 발생한 이슈 및 트러블 슈팅
+### 프로젝트 전체 구성도
+![image](https://github.com/user-attachments/assets/f36e2db9-4d73-431f-bb00-9b07e5f03812)
 
-* DB
-    * [클라이언트의 증가에 따라서 서버를 어떻게 확장해야할까?](https://fluorescent-sceptre-6b9.notion.site/626c4d1235184c1c83913a6cca1ad819)
-    * [어떤 데이터를 캐싱해야할까?](https://fluorescent-sceptre-6b9.notion.site/e5e730e11a4e4c40a1f1b2569c950ac4)
-<!-- * 중복되는 로그인 체크 기능을 인터셉터를 이용해서 구현하기 
-    * [사용자 로그인 체크는 어디서 해야할까요 - Filter와 Interceptor]() <img src="https://img.shields.io/badge/-WRITING-gray"><br>  -->
-* `@Email` Validation이 정상적으로 동작하지 않는 문제 해결하기
-    * [무심코 적용한 Validation 의심해볼 필요가 있습니다](https://see-one.tistory.com/14) 
- * `@Cacheable` 이 정상적으로 동작하지 않는 문제 해결하기
-    * [당신의 @Cacheable이 동작하지 않는 이유 - Spring Dynamic Proxy 기반 AOP의 동작과정]() <img src="https://img.shields.io/badge/-WRITING-gray"><br> 
-* RDBMS의 가용성과 부하 분산을 위해 데이터베이스 이중화 적용하기 
-    * [RDBMS 서버의 부하 분산과 가용성을 위해 이중화를 적용해봅시다]() <img src="https://img.shields.io/badge/-WRITING-gray"><br>
-    * [Spring Data Jpa 프로젝트에 Mutli DataSource와 RoutingDataSource 적용하기]() <img src="https://img.shields.io/badge/-WRITING-gray"><br>
-    * [Spring 빈들의 순환참조가 발생하는 이유와 순환참조 문제 해결하기]() <img src="https://img.shields.io/badge/-WRITING-gray"><br>
-* Jenkins와 Docker를 이용하여 CI/CD 구현하기 
-    * [기업들은 왜 CI와 CD를 적용할까요?]() <img src="https://img.shields.io/badge/-WRITING-gray"><br>
-    * [Jenkins 파이프라인을 이용한 CI 구축하기]() <img src="https://img.shields.io/badge/-WRITING-gray"><br>
-    * [스프링 프로젝트를 Docker를 이용해서 배포하기]() <img src="https://img.shields.io/badge/-WRITING-gray"><br>
-* 내가 만든 서버는 얼마나 많은 사용자가 이용할 수 있는지 성능 테스트하기
-    * [내가 만든 서버는 얼마나 많은 사용자가 이용할 수 있을까요 - nGrinder를 이용한 성능 테스트]() <img src="https://img.shields.io/badge/-WRITING-gray"><br> 
+### 사용한 기술 스택
+![image](https://github.com/user-attachments/assets/5f9117e7-82ad-49c4-95bb-58d6592d9f56)
 
-<br>
-
-
-<br>
-
-### 🥕 프로젝트 전체 구성도
-<div align="center"><img src=""></div>
-<br>
-<br>
-
-### 🥕 사용한 기술 스택
-
-<br>
-
-<div align="center"><img src=""></div>
-
-<br>
-
-### 🥕 프로젝트 화면 구성도 
-
-<br>
-<div align="center"><img src="">
