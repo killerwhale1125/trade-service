@@ -218,7 +218,7 @@ public class JwtTokenProvider {
         }
 
         /**
-         * Authentication 객체 생성
+         * 토큰에 담긴 유저 정보로 Authentication 객체 조회
          * 보안을 고려하여 Refresh 토큰도 만료되지 않았더라도 재발급
          */
         Authentication authentication = getAuthenticationFromClaims(claims);
