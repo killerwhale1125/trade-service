@@ -54,13 +54,13 @@ public class PostSearchService {
      * 검색한 주소에 관련하여 게시물 리스트 조회
      * 주소값을 받기 때문에 AOP 검증 X
      */
-//    @Transactional(readOnly = true)
-//    @Cacheable(
-//            key = "#addressRequest.getState() + '.' + #addressRequest.getCity() + '.' + #addressRequest.getTown()",
-//            value = POST,
-//            cacheManager = "redisCacheManager",
-//            condition = "#pageable.pageNumber == 0"
-//    )
+    @Transactional(readOnly = true)
+    @Cacheable(
+            key = "#addressRequest.getState() + '.' + #addressRequest.getCity() + '.' + #addressRequest.getTown()",
+            value = POST,
+            cacheManager = "redisCacheManager",
+            condition = "#pageable.pageNumber == 0"
+    )
     public PostPageResponseDto findAllByAddress(AddressRequestDto addressRequest, Pageable pageable) {
         Page<Post> posts = postRepository
                 .findAllByMemberAddress(addressRequest.getState(), addressRequest.getCity(), addressRequest.getTown(), pageable);
