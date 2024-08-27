@@ -10,14 +10,14 @@
 
 ### ✅ 사용 기술 및 개발 환경
 
-Java, Spring Boot, IntelliJ, Gradle, JPA, Querydsl, MySQL, Redis, Jenkins, Docker
+Java, Spring Boot, IntelliJ, Gradle, JPA, Querydsl, MySQL, Redis, Nginx, Jenkins, Docker
 
-### 프로젝트의 어떤 부분에 중점을 두었는지?
+### ✅ 프로젝트의 어떤 부분에 중점을 두었는지?
 
 * 대용량 트래픽에 어떤 방식을 도입하고 설계하여 조금이라도 부하를 줄일 수 있을지?
 * 최소한의 객체만으로 어떻게 객체지향적으로 설계할지
 
-### 프로젝트 수행 기록 및 이슈
+### ✅ 프로젝트 수행 기록 및 이슈
 
 * [클라이언트의 증가에 따라서 서버를 어떻게 확장해야할까?](https://fluorescent-sceptre-6b9.notion.site/626c4d1235184c1c83913a6cca1ad819)
 * [부하를 줄이기 위하여 어떤 조건의 데이터를 Redis로 캐싱하는게 좋을까?](https://fluorescent-sceptre-6b9.notion.site/e5e730e11a4e4c40a1f1b2569c950ac4)
@@ -27,10 +27,6 @@ Java, Spring Boot, IntelliJ, Gradle, JPA, Querydsl, MySQL, Redis, Jenkins, Docke
 
 * 그 밖에 수행 기록 : [notion link Click!](https://fluorescent-sceptre-6b9.notion.site/b0cf9a22d63541ea930d7b20b51d2b57)
 
-### 프로젝트 전체 구성도
+### ✅ 프로젝트 전체 구성도
 ![image](https://github.com/user-attachments/assets/6955635b-d00a-44b5-aae7-6fe8a93cd2c4)
-
-
-### 사용한 기술 스택
-![image](https://github.com/user-attachments/assets/5f9117e7-82ad-49c4-95bb-58d6592d9f56)
 
