@@ -13,6 +13,7 @@
 
 Java, Spring Boot, IntelliJ, Gradle, JPA, Querydsl, MySQL, Redis, Nginx, Jenkins, Docker
 <br>
+<br>
 
 ### ✅ 프로젝트의 어떤 부분에 중점을 두었는지?
 
