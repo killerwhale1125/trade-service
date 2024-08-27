@@ -21,7 +21,7 @@ Java, Spring Boot, IntelliJ, Gradle, JPA, Querydsl, MySQL, Redis, Nginx, Jenkins
 ### ✅ 프로젝트를 진행하며 고민한 Technical Issue & 수행 기록
 
 * [클라이언트의 증가에 따라서 서버를 어떻게 확장해야할까?](https://fluorescent-sceptre-6b9.notion.site/626c4d1235184c1c83913a6cca1ad819)
-* [부하를 줄이기위한 캐싱 적용과 성능 측정](https://fluorescent-sceptre-6b9.notion.site/e5e730e11a4e4c40a1f1b2569c950ac4)
+* [부하를 줄이기위한 캐싱 적용과 ngrinder 성능 측정](https://fluorescent-sceptre-6b9.notion.site/e5e730e11a4e4c40a1f1b2569c950ac4)
 * [분산 처리 환경에서의 세션 불일치 문제와 토큰 기반 인증 관리](https://fluorescent-sceptre-6b9.notion.site/b0ca0b7162b748ebb5116f3193a28a27)
 * [Redis 성능 향상을 위한 Redis 세션 저장소와 캐시 저장소의 분리]
 * [부하 분산을 위한 MySQL Replication 구성 및 쿼리 요청 분기]
