@@ -29,7 +29,7 @@
 * 그 밖에 수행 기록 : [notion link Click!](https://fluorescent-sceptre-6b9.notion.site/b0cf9a22d63541ea930d7b20b51d2b57)
 
 ### 프로젝트 전체 구성도
-![image](https://github.com/user-attachments/assets/f36e2db9-4d73-431f-bb00-9b07e5f03812)
+![image](https://github.com/user-attachments/assets/a77cc424-8e46-422d-978e-b0ab070936ac)
 
 ### 사용한 기술 스택
 ![image](https://github.com/user-attachments/assets/5f9117e7-82ad-49c4-95bb-58d6592d9f56)
