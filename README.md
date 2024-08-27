@@ -10,6 +10,8 @@
 
 ### ✅ 사용 기술 및 개발 환경
 
+Java, Spring Boot, IntelliJ, Gradle, JPA, Querydsl, MySQL, Redis, Jenkins, Docker
+
 ### 프로젝트의 어떤 부분에 중점을 두었는지?
 
 * 대용량 트래픽에 어떤 방식을 도입하고 설계하여 조금이라도 부하를 줄일 수 있을지?
