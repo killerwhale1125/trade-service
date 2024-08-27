@@ -27,7 +27,7 @@ Java, Spring Boot, IntelliJ, Gradle, JPA, Querydsl, MySQL, Redis, Nginx, Jenkins
 
 ### ✅ 사용 아키텍쳐
 * [Redis 아키텍쳐](https://fluorescent-sceptre-6b9.notion.site/Redis-df37c069a91f4aff90f41db73b575b9b)
-* [Mysql 아키텍쳐](https://fluorescent-sceptre-6b9.notion.site/Redis-df37c069a91f4aff90f41db73b575b9b)
+* [Mysql 아키텍쳐](https://fluorescent-sceptre-6b9.notion.site/Mysql-42d407fb10674feabaf60065163b49de)
 
 * 그 밖의 수행 기록 : [notion link Click!](https://fluorescent-sceptre-6b9.notion.site/b0cf9a22d63541ea930d7b20b51d2b57)
 
