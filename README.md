@@ -10,7 +10,7 @@
 
 ### ✅ 사용 기술 및 개발 환경
 
-Java, Spring Boot, IntelliJ, Gradle, JPA, Querydsl, MySQL, Redis, Nginx, Jenkins, Docker
+Java, Spring Boot, Spring AOP, IntelliJ, Gradle, JPA, Querydsl, MySQL, Redis, Nginx, Jenkins, Docker
 
 ### ✅ 프로젝트의 어떤 부분에 중점을 두었는지?
 
