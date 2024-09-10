@@ -1,7 +1,11 @@
 package carrot.market.util.jwt;
 
-import carrot.market.exception.RefreshTokenMismatchException;
-import io.jsonwebtoken.*;
+import carrot.market.common.baseutil.BaseException;
+import carrot.market.common.baseutil.BaseResponseStatus;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,16 +14,15 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import java.security.SignatureException;
-import java.util.*;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
@@ -49,7 +52,6 @@ public class JwtTokenProvider {
         }
         return null;
     }
-
 
     /**
      * Authentication 정보로 AccessToken, RefreshToken을 생성
@@ -96,36 +98,11 @@ public class JwtTokenProvider {
         return new UsernamePasswordAuthenticationToken(principal, "", authorities);
     }
 
-    /**
-     * Token 검증
-     */
-    public boolean validateToken(String token) {
-        try {
-            Jwts.parserBuilder()
-                    .setSigningKey(key)
-                    .build()
-                    .parseClaimsJws(token);
-        } catch (SecurityException | MalformedJwtException e) {
-            log.debug("Invalid JWT Token", e);
-            log.info("유효하지 않은 JWT 토큰입니다", JwtTokenProvider.class);
-        } catch (ExpiredJwtException e) {
-            log.debug("Expired JWT Token", e);
-            log.info("JWT 토큰의 기간이 만료되었습니다.", JwtTokenProvider.class);
-        } catch (UnsupportedJwtException e) {
-            log.debug("Unsupported JWT Token", e);
-            log.info("지원되지 않는 JWT 토큰입니다.", JwtTokenProvider.class);
-        } catch (IllegalArgumentException e) {
-            log.debug("JWT claims string is empty.", e);
-            log.info("JWT 토큰이 비어있습니다.", JwtTokenProvider.class);
-        } catch (Exception e) {
-            if (e instanceof SignatureException) {
-                log.error("JWT signature does not match locally computed signature.", e);
-                log.info("JWT 서명이 일치하지 않습니다. JWT의 유효성을 확인할 수 없습니다.", JwtTokenProvider.class);
-            } else {
-                log.error("Unexpected JWT parsing error", e);
-            }
-        }
-        return true;
+    public String validate(String token){
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token).getBody().getSubject();
     }
 
     /**
@@ -198,7 +175,7 @@ public class JwtTokenProvider {
          * Refresh 토큰 검증
          * 토큰 값이 존재하는데 검증 실패 시 재 로그인 필요
          */
-        validateToken(refreshToken);
+        validate(refreshToken);
         
         Claims claims = parseClaims(refreshToken);
         String username = claims.getSubject();
@@ -214,7 +191,7 @@ public class JwtTokenProvider {
          * Refresh 토큰 null 체크 & 동등성 여부 판단
          */
         if(!StringUtils.hasText(redisRefreshToken) || !refreshToken.equals(redisRefreshToken)) {
-            throw new RefreshTokenMismatchException("RefreshToken mismatched");
+            throw new BaseException(BaseResponseStatus.TOKEN_MISMATCHED);
         }
 
         /**
