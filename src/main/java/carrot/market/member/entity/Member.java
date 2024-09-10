@@ -17,7 +17,7 @@ import java.util.Collection;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member implements UserDetails {
+public class Member {
     @Id
     @GeneratedValue
     @Column(name = "MEMBER_ID")
@@ -37,40 +37,6 @@ public class Member implements UserDetails {
 
     @Enumerated
     private MemberRole roles;
-
-    // 해당 User의 권한을 리턴하는 곳
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority> collect = new ArrayList<>();
-        collect.add((GrantedAuthority) () -> this.getRoles().name());
-        // GrantedAuthority 생성자를 만들어 오버라이드한 메소드로 user.getRole()를 호출하여 리턴
-        return collect;
-    }
-
-    @Override
-    public String getUsername() {
-        return null;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return UserDetails.super.isAccountNonExpired();
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return UserDetails.super.isAccountNonLocked();
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return UserDetails.super.isCredentialsNonExpired();
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return UserDetails.super.isEnabled();
-    }
 
     @Builder
     public Member(String email, String password, String nickname) {

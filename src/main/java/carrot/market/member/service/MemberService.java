@@ -1,11 +1,10 @@
 package carrot.market.member.service;
 
+import carrot.market.common.baseutil.BaseException;
 import carrot.market.member.dto.LocationAddressRequestDto;
 import carrot.market.member.dto.LoginRequestDto;
 import carrot.market.member.dto.PasswordRequestDto;
 import carrot.market.member.dto.ProfileRequestDto;
-import carrot.market.exception.MemberNotFoundException;
-import carrot.market.exception.PasswordNotMatchedException;
 import carrot.market.member.entity.Member;
 import carrot.market.member.repository.MemberRepository;
 import carrot.market.util.jwt.JwtToken;
@@ -18,6 +17,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static carrot.market.common.baseutil.BaseResponseStatus.*;
 
 @Service
 @RequiredArgsConstructor
@@ -36,7 +37,7 @@ public class MemberService {
     }
 
     public boolean isValidMember(LoginRequestDto loginRequestDto, PasswordEncoder passwordEncoder) {
-        Member member = memberRepository.findMemberByEmail(loginRequestDto.getUsername()).orElseThrow(MemberNotFoundException::new);
+        Member member = memberRepository.findMemberByEmail(loginRequestDto.getUsername()).orElseThrow(() -> new BaseException(NOT_EXISTED_USER));
 
         if(!passwordEncoder.matches(loginRequestDto.getPassword(), member.getPassword())) {
             return false;
@@ -69,9 +70,7 @@ public class MemberService {
         /**
          * 3. 인증 정보를 기반으로 JWT 토큰 생성
          */
-        JwtToken jwtToken = jwtTokenProvider.generateToken(authentication);
-
-        return jwtToken;
+        return jwtTokenProvider.generateToken(authentication);
     }
 
     public void updateMemberProfile(Member member, ProfileRequestDto profileRequest) {
@@ -83,7 +82,7 @@ public class MemberService {
         if(passwordEncoder.matches(passwordRequestDto.getOldPassword(), member.getPassword())) {
             return true;
         } else {
-            throw new PasswordNotMatchedException();
+            throw new BaseException(NOT_MATCHED_PASSWORD);
         }
     }
 
@@ -96,6 +95,6 @@ public class MemberService {
     }
 
     public Member findMemberByEmail(String email) {
-        return memberRepository.findMemberByEmail(email).orElseThrow(MemberNotFoundException::new);
+        return memberRepository.findMemberByEmail(email).orElseThrow(() -> new BaseException(NOT_EXISTED_USER));
     }
 }
