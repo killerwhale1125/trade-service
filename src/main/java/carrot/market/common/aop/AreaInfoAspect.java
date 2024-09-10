@@ -1,7 +1,6 @@
 package carrot.market.common.aop;
 
-import carrot.market.exception.AreaInfoNotDefinedException;
-import carrot.market.exception.MemberNotFoundException;
+import carrot.market.common.baseutil.BaseException;
 import carrot.market.member.entity.Member;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -9,6 +8,9 @@ import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+
+import static carrot.market.common.baseutil.BaseResponseStatus.NOT_EXISTED_AREA;
+import static carrot.market.common.baseutil.BaseResponseStatus.NOT_EXISTED_USER;
 
 /**
  * 회원의 지역 정보가 유효한지 AOP 검증
@@ -33,11 +35,11 @@ public class AreaInfoAspect {
                 .filter(obj1 -> Member.class.isInstance(obj1))
                 .map(obj -> Member.class.cast(obj))
                 .findFirst()
-                .orElseThrow(MemberNotFoundException::new);
+                .orElseThrow(() -> new BaseException(NOT_EXISTED_USER));
 
 
         if(member.getAddress() == null || member.getLocation() == null) {
-            throw new AreaInfoNotDefinedException("지역 정보를 등록해주세요.");
+            throw new BaseException(NOT_EXISTED_AREA);
         }
     }
 }
