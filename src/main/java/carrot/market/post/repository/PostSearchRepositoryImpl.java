@@ -31,7 +31,6 @@ public class PostSearchRepositoryImpl implements PostSearchRepository {
     public Page<Post> findAllByMemberAddress(String state, String city, String town, Pageable pageable) {
         JPAQuery<Post> query = queryFactory
                 .selectFrom(post)
-                .innerJoin(post.author).fetchJoin()
                 .where(addressCondition(state, city, town))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize());
@@ -49,7 +48,6 @@ public class PostSearchRepositoryImpl implements PostSearchRepository {
     public Page<Post> findAllByCategory(String categoryName, String state, String city, String town, Pageable pageable) {
         JPAQuery<Post> query = queryFactory
                 .selectFrom(post)
-                .innerJoin(post.author).fetchJoin()
                 .where(addressCondition(state, city, town).and(categoryNameCondition(categoryName)))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize());

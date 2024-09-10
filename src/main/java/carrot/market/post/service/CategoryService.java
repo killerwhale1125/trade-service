@@ -1,12 +1,13 @@
 package carrot.market.post.service;
 
-import carrot.market.exception.CategoryNotFoundException;
+import carrot.market.common.baseutil.BaseException;
 import carrot.market.post.entity.Category;
 import carrot.market.post.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import static carrot.market.common.baseutil.BaseResponseStatus.NOT_EXISTED_CATEGORY;
 import static carrot.market.config.CacheKeyConfig.CATEGORY;
 
 @Service
@@ -24,6 +25,6 @@ public class CategoryService {
     @Cacheable(key = "#categoryName", value = CATEGORY, cacheManager = "redisCacheManager", cacheNames = CATEGORY)
     public Category findCategoryByName(String categoryName) {
         return categoryRepository.findCategoryByCategoryName(categoryName)
-                .orElseThrow(() -> new CategoryNotFoundException(categoryName));
+                .orElseThrow(() -> new BaseException(NOT_EXISTED_CATEGORY));
     }
 }

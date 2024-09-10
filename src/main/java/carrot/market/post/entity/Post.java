@@ -4,6 +4,7 @@ import carrot.market.common.BaseTimeEntity;
 import carrot.market.member.entity.Member;
 import carrot.market.post.dto.PostRequestDto;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -46,6 +47,13 @@ public class Post extends BaseTimeEntity {
     @Column(name = "IS_REMOVED")
     private Boolean removed = false;
 
+    @NotNull
+    private int viewCount;
+    @NotNull
+    private int commentCount;
+    @NotNull
+    private int favoriteCount;
+
     @Builder
     public Post(String title, TradeStatus status, Member author,
                 String content, Address address, Location location) {
@@ -55,6 +63,9 @@ public class Post extends BaseTimeEntity {
         this.content = content;
         this.address = address;
         this.location = location;
+        this.viewCount = 0;
+        this.commentCount = 0;
+        this.favoriteCount = 0;
     }
 
     @Builder
@@ -88,5 +99,13 @@ public class Post extends BaseTimeEntity {
 
     public void removePost() {
         this.removed = true;
+    }
+
+    public void addFavoriteCount() {
+        this.favoriteCount++;
+    }
+
+    public void removeFavoriteCount() {
+        this.favoriteCount--;
     }
 }

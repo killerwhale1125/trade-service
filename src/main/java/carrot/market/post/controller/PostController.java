@@ -1,5 +1,6 @@
 package carrot.market.post.controller;
 
+import carrot.market.common.baseutil.BaseResponse;
 import carrot.market.member.entity.Member;
 import carrot.market.member.service.MemberService;
 import carrot.market.post.dto.PostRequestDto;
@@ -27,28 +28,28 @@ public class PostController {
      * 게시물 등록
      */
     @PostMapping
-    public ResponseEntity<HttpStatus> createPost(@RequestBody @Valid PostRequestDto postRequest, Authentication authentication) {
+    public BaseResponse<Void> createPost(@RequestBody @Valid PostRequestDto postRequest, Authentication authentication) {
 
         postService.createNewPost(postRequest, authentication.getName());
 
-        return RESPONSE_OK;
+        return new BaseResponse<>();
     }
 
     /**
      * 게시물 상세 조회
      */
     @GetMapping("/{postId}")
-    public ResponseEntity<PostResponseDto> findPost(@PathVariable Long postId) {
+    public BaseResponse<PostResponseDto> findPost(@PathVariable Long postId) {
         Post post = postService.findPostById(postId);
 
-        return ResponseEntity.ok(PostResponseDto.of(post));
+        return new BaseResponse<>(PostResponseDto.of(post));
     }
 
     /**
      * 게시물 업데이트
      */
     @PutMapping("/{postId}")
-    public ResponseEntity<HttpStatus> updatePost(@Valid @RequestBody PostRequestDto postRequest,
+    public BaseResponse<Void> updatePost(@Valid @RequestBody PostRequestDto postRequest,
                                                  @PathVariable Long postId,
                                                  Authentication authentication) {
         Member member = memberService.findMemberByEmail(authentication.getName());
@@ -56,19 +57,19 @@ public class PostController {
 
         postService.updatePost(post, postRequest, member);
 
-        return RESPONSE_OK;
+        return new BaseResponse<>();
     }
 
     /**
      * 게시물 삭제
      */
     @DeleteMapping("/{postId}")
-    public ResponseEntity<HttpStatus> deletePost(@PathVariable Long postId, Authentication authentication) {
+    public BaseResponse<Void> deletePost(@PathVariable Long postId, Authentication authentication) {
         Member member = memberService.findMemberByEmail(authentication.getName());
         Post post = postService.findPostById(postId);
 
         postService.removePost(post, member);
 
-        return RESPONSE_OK;
+        return new BaseResponse<>();
     }
 }

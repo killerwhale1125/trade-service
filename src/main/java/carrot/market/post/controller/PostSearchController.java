@@ -32,7 +32,7 @@ public class PostSearchController {
     }
 
     /**
-     * 검색한 주소에 관련하여 게시물 리스트 조회
+     * 검색한 주소에 관련하여 주소 근처 게시물 리스트 조회
      * 주소값을 받기 때문에 AOP 검증 X
      */
     @GetMapping("/address")

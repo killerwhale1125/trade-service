@@ -1,8 +1,6 @@
 package carrot.market.post.service;
 
-import carrot.market.exception.MemberNotFoundException;
-import carrot.market.exception.PostNotFoundException;
-import carrot.market.exception.UnAuthorizedAccessException;
+import carrot.market.common.baseutil.BaseException;
 import carrot.market.member.entity.Member;
 import carrot.market.member.repository.MemberRepository;
 import carrot.market.post.dto.PostRequestDto;
@@ -15,6 +13,7 @@ import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static carrot.market.common.baseutil.BaseResponseStatus.*;
 import static carrot.market.config.CacheKeyConfig.POST;
 
 @Service
@@ -26,7 +25,7 @@ public class PostService {
     private final CategoryService categoryService;
 
     public Post findPostById(Long postId) {
-        return postRepository.findPostById(postId).orElseThrow(PostNotFoundException::new);
+        return postRepository.findPostById(postId).orElseThrow(() -> new BaseException(NOT_EXISTED_POST));
     }
 
     /**
@@ -35,7 +34,7 @@ public class PostService {
      */
     @Transactional
     public void createNewPost(PostRequestDto postRequest, String email) {
-        Member member = memberRepository.findMemberByEmail(email).orElseThrow(MemberNotFoundException::new);
+        Member member = memberRepository.findMemberByEmail(email).orElseThrow(() -> new BaseException(NOT_EXISTED_USER));
 
         Post post = postRequest.toEntity(member);
         /** 카테고리 캐시 조회 및 저장 **/
@@ -86,9 +85,8 @@ public class PostService {
     }
 
     private boolean checkAuth(Post post, Member member) {
-        if(post.getAuthor().getId() != member.getId()) {
-            throw new UnAuthorizedAccessException();
-        }
+        if(post.getAuthor().getId() != member.getId())
+            throw new BaseException(AUTHORIZATION_FAIL);
         return true;
     }
 }
