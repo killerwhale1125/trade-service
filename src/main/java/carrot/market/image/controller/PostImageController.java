@@ -1,5 +1,6 @@
 package carrot.market.image.controller;
 
+import carrot.market.common.baseutil.BaseResponse;
 import carrot.market.image.service.ImageUploadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,10 +24,10 @@ public class PostImageController {
      * 게시물 이미지 업로드 (회원만 업로드 가능)
      */
     @PostMapping("/{postId}/images")
-    public ResponseEntity<HttpStatus> uploadImages(@PathVariable Long postId,
-                                                   @RequestParam("file") List<MultipartFile> files) throws IOException {
+    public BaseResponse<Void> uploadImages(@PathVariable Long postId,
+                                                 @RequestParam("file") List<MultipartFile> files) throws IOException {
         imageUploadService.upload(postId, files);
 
-        return RESPONSE_OK;
+        return new BaseResponse<>();
     }
 }

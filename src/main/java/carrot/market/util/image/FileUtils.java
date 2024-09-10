@@ -1,12 +1,14 @@
 package carrot.market.util.image;
 
-import carrot.market.exception.UnSupportedFileTypeException;
+import carrot.market.common.baseutil.BaseException;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.UUID;
+
+import static carrot.market.common.baseutil.BaseResponseStatus.UNSUPPORT_FILETYPE;
 
 public class FileUtils {
     private static final String BASE_DIRECTORY = "image";
@@ -22,7 +24,7 @@ public class FileUtils {
         String extension = StringUtils.getFilenameExtension(Objects.requireNonNull(file.getOriginalFilename()));
 
         if(!isValidFileType(extension)) {
-            throw new UnSupportedFileTypeException(extension + "은 지원하는 파일 형식이 아닙니다.");
+            throw new BaseException(UNSUPPORT_FILETYPE);
         }
 
         return  BASE_DIRECTORY + "/" + filename + "." + extension;
