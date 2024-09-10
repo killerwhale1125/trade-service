@@ -29,9 +29,16 @@ Java, Spring Boot, Spring AOP, IntelliJ, Gradle, JPA, Querydsl, MySQL, Redis, Ng
 * [Redis 성능 향상을 위한 Redis 세션 저장소와 캐시 저장소의 분리]
 * [빠른 장애 대처를 위한 Log 추적기능과 프록시 적용]
 
-### ✅ 사용 아키텍쳐
+### ✅ 사용 아키텍쳐 
 * [Redis 아키텍쳐](https://fluorescent-sceptre-6b9.notion.site/Redis-df37c069a91f4aff90f41db73b575b9b)
 * [Mysql 아키텍쳐](https://fluorescent-sceptre-6b9.notion.site/Mysql-42d407fb10674feabaf60065163b49de)
+
+### ✅ REST API 명세서
+* [AUTH](https://fluorescent-sceptre-6b9.notion.site/Auth-bc8158a621e54af8be50acb4ec5aaaad)
+* [POST](https://fluorescent-sceptre-6b9.notion.site/Post-53b13fc67e2b42aeb22f85aad6749700)
+* [POST SEARCH](https://fluorescent-sceptre-6b9.notion.site/PostSearch-a4f49b44930f4652a2d931ba508956e9)
+* [USER](https://fluorescent-sceptre-6b9.notion.site/User-31bcde04f58d409e87151826cf19dcf0)
+* [JWT EXCEPTION](https://fluorescent-sceptre-6b9.notion.site/JWT-Exception-4424734ce2f74dc3ab8059b9570ae841)
 
 * 그 밖의 수행 기록 : [notion link Click!](https://fluorescent-sceptre-6b9.notion.site/b0cf9a22d63541ea930d7b20b51d2b57)
 
