@@ -29,7 +29,9 @@ Java, Spring Boot, Spring AOP, IntelliJ, Gradle, JPA, Querydsl, MySQL, Redis, Ng
 
 ### ✅ 사용 아키텍쳐 
 * [Redis 아키텍쳐](https://fluorescent-sceptre-6b9.notion.site/Redis-df37c069a91f4aff90f41db73b575b9b)
+![image](https://github.com/user-attachments/assets/9a9b88a4-79de-47bb-b4b3-a72cdaf70108)
 * [Mysql 아키텍쳐](https://fluorescent-sceptre-6b9.notion.site/Mysql-42d407fb10674feabaf60065163b49de)
+![image](https://github.com/user-attachments/assets/77b6794c-970a-4d86-bef9-71846c21e9e2)
 
 ### ✅ REST API 명세서
 * [AUTH](https://fluorescent-sceptre-6b9.notion.site/Auth-bc8158a621e54af8be50acb4ec5aaaad)
