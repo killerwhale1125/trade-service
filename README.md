@@ -26,7 +26,7 @@ Java, Spring Boot, Spring AOP, IntelliJ, Gradle, JPA, Querydsl, MySQL, Redis, Ng
 * [부하를 줄이기위한 캐싱 적용과 ngrinder 성능 측정](https://fluorescent-sceptre-6b9.notion.site/e5e730e11a4e4c40a1f1b2569c950ac4)
 * [분산 처리 환경에서의 세션 불일치 문제와 토큰 기반 인증 관리](https://fluorescent-sceptre-6b9.notion.site/b0ca0b7162b748ebb5116f3193a28a27)
 * [Redis 성능 향상을 위한 Redis 세션 저장소와 캐시 저장소의 분리]
-* [Spring AOP는 어떻게 Proxy를 생성하고 횡단 관심사를 분리할까?]
+* [Spring AOP는 어떻게 Proxy를 생성하고 횡단 관심사를 분리할까?](https://fluorescent-sceptre-6b9.notion.site/Spring-AOP-Proxy-0e7cb619f60b49de8dcf01d0ad6a703d)
 
 ### ✅ 사용 아키텍쳐 
 * [Redis 아키텍쳐](https://fluorescent-sceptre-6b9.notion.site/Redis-df37c069a91f4aff90f41db73b575b9b)
