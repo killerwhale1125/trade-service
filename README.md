@@ -17,7 +17,7 @@ Java, Spring Boot, Spring AOP, IntelliJ, Gradle, JPA, Querydsl, Redis, Nginx, Je
 
 * 대량의 요청에 있어 어떤 방식을 도입하고 아키텍쳐를 설계하여 조금이라도 부하를 줄일 수 있을지?
 * 요청 정보를 위한 log 출력에 있어 핵심 기능과 부가기능(cross-cutting concerns)을 잘 분리했는지?
-* 최소한의 객체만으로 어떻게 객체지향적으로 설계할지?
+* 최소한의 객체만으로 어떻게 객체지향적으로 설계할까?
 * 프론트엔드 부분은 생략하고 벡엔드에 초점을 맞춰 백엔드 개발에 주력하였습니다.
 
 ### ✅ 프로젝트를 진행하며 고민한 Technical Issue
