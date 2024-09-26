@@ -11,19 +11,19 @@
 
 ### ✅ 사용 기술 및 개발 환경
 
-Java, Spring Boot, Spring AOP, IntelliJ, Gradle, JPA, Querydsl, MySQL, Redis, Nginx, Jenkins, Docker
+Java, Spring Boot, Spring AOP, IntelliJ, Gradle, JPA, Querydsl, Redis, Nginx, Jenkins, Docker, AWS EC2, RDS MySQL
 
 ### ✅ 프로젝트의 어떤 부분에 중점을 두었는지?
 
 * 대량의 요청에 있어 어떤 방식을 도입하고 아키텍쳐를 설계하여 조금이라도 부하를 줄일 수 있을지?
 * 요청 정보를 위한 log 출력에 있어 핵심 기능과 부가기능(cross-cutting concerns)을 잘 분리했는지?
-* 최소한의 객체만으로 어떻게 객체지향적으로 설계할지?
+* 최소한의 객체만으로 어떻게 객체지향적으로 설계할까?
 * 프론트엔드 부분은 생략하고 벡엔드에 초점을 맞춰 백엔드 개발에 주력하였습니다.
 
 ### ✅ 프로젝트를 진행하며 고민한 Technical Issue
 
 * [사용자 증가에 따른 서버 확장법과 부하 분산을 위한 MySQL Replication 구성](https://fluorescent-sceptre-6b9.notion.site/626c4d1235184c1c83913a6cca1ad819)
-* [부하를 줄이기위한 캐싱 적용과 ngrinder 성능 측정](https://fluorescent-sceptre-6b9.notion.site/e5e730e11a4e4c40a1f1b2569c950ac4)
+* [Scale Out & 캐싱 적용 유무 ngrinder 성능 측정](https://fluorescent-sceptre-6b9.notion.site/Ngrinder-10584e25fcb680b99f28d4c51d8fc2d5)
 * [분산 처리 환경에서의 세션 불일치 문제와 토큰 기반 인증 관리](https://fluorescent-sceptre-6b9.notion.site/b0ca0b7162b748ebb5116f3193a28a27)
 * [Spring AOP는 어떻게 Proxy를 생성하고 횡단 관심사를 분리할까?](https://fluorescent-sceptre-6b9.notion.site/Spring-AOP-Proxy-0e7cb619f60b49de8dcf01d0ad6a703d)
 
