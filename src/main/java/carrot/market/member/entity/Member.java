@@ -19,7 +19,7 @@ import java.util.Collection;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "MEMBER_ID")
     private Long id;
 
@@ -39,10 +39,11 @@ public class Member {
     private MemberRole roles;
 
     @Builder
-    public Member(String email, String password, String nickname) {
+    public Member(String email, String password, String nickname, Address address) {
         this.email = email;
         this.password = password;
         this.nickname = nickname;
+        this.address = address;
     }
 
     public void updateProfile(String nickname) {

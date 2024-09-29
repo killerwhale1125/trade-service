@@ -1,6 +1,7 @@
 package carrot.market.member.dto;
 
 import carrot.market.member.entity.Member;
+import carrot.market.post.entity.Address;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
@@ -25,11 +26,19 @@ public class MemberDto {
     @NotEmpty
     private String nickname;
 
+    @NotEmpty
+    private String state;
+    @NotEmpty
+    private String city;
+    @NotEmpty
+    private String town;
+
     public static Member toEntity(MemberDto memberDto, PasswordEncoder passwordEncoder) {
         return Member.builder()
                 .email(memberDto.getEmail())
                 .password(passwordEncoder.encode(memberDto.getPassword()))
                 .nickname(memberDto.getNickname())
+                .address(new Address(memberDto.getState(), memberDto.getCity(), memberDto.getTown()))
                 .build();
     }
 }

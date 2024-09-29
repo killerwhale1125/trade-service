@@ -65,7 +65,12 @@ public class MemberService {
          * Manager는 Authentication 객체를 인증할 적절한 Provider를 찾아야 함
          * 따라서 loadUserByUsername을 호출하는 것은 AuthenticationProvider에 의해 호출됨
          */
-        Authentication authentication = authenticationManager.authenticate(authenticationToken);
+        Authentication authentication = null;
+        try {
+            authentication = authenticationManager.authenticate(authenticationToken);
+        } catch (Exception e){
+            throw new BaseException(SIGN_IN_FAIL);
+        }
 
         /**
          * 3. 인증 정보를 기반으로 JWT 토큰 생성
