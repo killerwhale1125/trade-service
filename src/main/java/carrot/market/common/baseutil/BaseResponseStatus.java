@@ -28,7 +28,8 @@ public enum BaseResponseStatus {
     UNKNOWN_ERROR("UE", "Unknown error"),
     ALREADY_LIKED("AL", "Already liked"),
     AREA_NOT_DEFINED("AD", "AreaInfo Not Defined"),
-    UNSUPPORT_FILETYPE("UF", "Unsupported File Type!");
+    UNSUPPORT_FILETYPE("UF", "Unsupported File Type!"),
+    REDIS_LOCKED("RL", "Another transaction is already processing this key");
 
     private final String code;
     private final String message;
