@@ -43,5 +43,5 @@ Java, Spring Boot, Spring AOP, IntelliJ, Gradle, JPA, Querydsl, Redis, Nginx, Je
 * 그 밖의 수행 기록 : [notion link Click!](https://fluorescent-sceptre-6b9.notion.site/b0cf9a22d63541ea930d7b20b51d2b57)
 
 ### ✅ 프로젝트 전체 구성도
-![image](https://prod-files-secure.s3.us-west-2.amazonaws.com/06ae7d5d-218b-4fd2-8642-27c57f46daef/97d2201f-ef58-43a6-b63b-318b93dcb408/image.png)
+![image](https://github.com/user-attachments/assets/f3e49359-5212-493e-a3f1-93b3ac932387)
 
