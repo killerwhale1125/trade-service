@@ -14,5 +14,6 @@ Java, Spring Boot, Spring AOP, IntelliJ, Gradle, JPA, Querydsl, Redis, Nginx, Je
 * [Redis 캐싱을 활용한 게시물 조회 성능 증가와 로드밸런싱 활용](https://killerwhale1125.github.io/posts/%EC%A1%B0%EA%B1%B4%EB%B6%80-%EC%BA%90%EC%8B%B1-%EB%B0%8F-%EC%84%B1%EB%8A%A5-%ED%85%8C%EC%8A%A4%ED%8A%B8/)
 
 ### ✅ 프로젝트 전체 구성도
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/06ae7d5d-218b-4fd2-8642-27c57f46daef/97d2201f-ef58-43a6-b63b-318b93dcb408/image.png)
+![image](https://github.com/user-attachments/assets/7990f15f-3978-4592-8f36-4d79329915d6)
+
 
