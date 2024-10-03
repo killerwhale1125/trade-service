@@ -1,7 +1,13 @@
 <p align="center">중고거래 플랫폼 API 서버 토이 프로젝트입니다.</p>
 
-### ✅ <span>당근마켓</span>, <span>번개장터</span> 같은 중고거래 플랫폼은 어떤 방식으로 구성되어 있으며 어떻게 안정적인 서비스를 제공할까?
+### ✅ <span>당근마켓</span>같은 중고거래 플랫폼은 어떤 방식으로 구성되어 있으며 어떻게 안정적인 서비스를 제공할까?
+- 빠른 데이터 조회
+- 트래픽 분산 처리
+- 장애 발생 시 신속한 대응을 위한 로그 추적
+- 안정적인 트랜잭션 처리
 
+  이러한 궁금증으로 인하여 간단히 프로젝트를 진행하였습니다.
+<br/>
 ### ✅ 사용 기술 및 개발 환경
 
 Java, Spring Boot, Spring AOP, IntelliJ, Gradle, JPA, Querydsl, Redis, Nginx, Jenkins, Docker, AWS EC2, RDS MySQL
