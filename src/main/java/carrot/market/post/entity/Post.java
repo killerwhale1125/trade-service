@@ -18,21 +18,21 @@ import java.time.LocalDateTime;
 public class Post extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "POST_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "post_id")
     private Long id;
 
     private String title;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CATEGORY_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @Enumerated(EnumType.STRING)
     private TradeStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MEMBER_ID")
+    @JoinColumn(name = "member_id")
     private Member author;
 
     @Lob
@@ -86,6 +86,8 @@ public class Post extends BaseTimeEntity {
 
     public void addCategory(Category category) {
         this.category = category;
+        // 양방향 연결관계 설정
+        category.getPosts().add(this);
     }
 
     public void updatePost(PostRequestDto postRequest) {

@@ -1,5 +1,6 @@
 package carrot.market.util.jwt;
 
+import carrot.market.common.annotation.RedisTransactional;
 import carrot.market.common.baseutil.BaseException;
 import carrot.market.common.baseutil.BaseResponseStatus;
 import io.jsonwebtoken.Claims;
@@ -66,11 +67,13 @@ public class JwtTokenProvider {
         String accessToken = createAccessToken(authentication);
         String refreshToken = createRefreshToken(authentication);
 
-        return JwtToken.builder()
+        JwtToken bearer = JwtToken.builder()
                 .grantType("Bearer")
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .build();
+
+        return bearer;
     }
 
     /**
@@ -139,6 +142,7 @@ public class JwtTokenProvider {
     /**
      * Refresh 토큰 생성
      */
+    @RedisTransactional
     public String createRefreshToken(Authentication authentication) {
         Claims claims = Jwts.claims().setSubject(authentication.getName());
         Date now = new Date();
@@ -154,15 +158,11 @@ public class JwtTokenProvider {
                 .signWith(SignatureAlgorithm.HS256, key)
                 .compact();
 
-        /**
-         * Redis Ram에 Refresh 토큰 저장
-         */
         redisTemplate.opsForValue().set(
                 authentication.getName(),
                 refreshToken,
                 refreshExpirationTime,
-                TimeUnit.MILLISECONDS
-        );
+                TimeUnit.MILLISECONDS);
 
         return refreshToken;
     }

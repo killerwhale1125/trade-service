@@ -14,21 +14,21 @@ import lombok.NoArgsConstructor;
 public class Image extends BaseTimeEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "IMAGE_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "image_id")
     private Long id;
 
-    @Column(name = "IMAGE_NAME")
+    @Column(name = "image_name")
     private String name;
 
-    @Column(name = "IMAGE_URL")
+    @Column(name = "image_url")
     private String url;
 
-    @Column(name = "IS_REMOVED")
+    @Column(name = "is_removed")
     private boolean removed;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "POST_ID")
+    @JoinColumn(name = "post_id")
     private Post post;
 
     @Builder

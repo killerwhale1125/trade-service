@@ -19,8 +19,8 @@ import java.util.Collection;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "MEMBER_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "member_id")
     private Long id;
 
     private String email;

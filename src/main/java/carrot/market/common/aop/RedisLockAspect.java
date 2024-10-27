@@ -63,16 +63,16 @@ public class RedisLockAspect {
                         throw e; // 원래의 예외를 던짐
                     } catch (Throwable e) {
                         operations.discard(); // 트랜잭션 중단 (롤백)
-                        throw new BaseException(DATABASE_ERROR); // 데이터베이스 오류
+                        throw new BaseException(REDIS_TRANSACTION_FAIL);
                     }
 
                     return operations.exec(); // 트랜잭션 커밋 (EXEC)
                 }
             });
 
-            // 트랜잭션 성공 (커밋 후의 로직 처리)
+            // 트랜잭션 실패 (커밋 후의 로직 처리)
             if (transactionResults == null || transactionResults.isEmpty()) {
-                throw new IllegalStateException("Redis transaction failed or aborted.");
+                throw new BaseException(REDIS_TRANSACTION_FAIL);
             }
 
             // 성공 시, 실제 메서드의 반환값 전달

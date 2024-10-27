@@ -29,7 +29,8 @@ public enum BaseResponseStatus {
     ALREADY_LIKED("AL", "Already liked"),
     AREA_NOT_DEFINED("AD", "AreaInfo Not Defined"),
     UNSUPPORT_FILETYPE("UF", "Unsupported File Type!"),
-    REDIS_LOCKED("RL", "Another transaction is already processing this key");
+    REDIS_LOCKED("RL", "Another transaction is already processing this key"),
+    REDIS_TRANSACTION_FAIL("RF", "Redis transaction failed or aborted.");
 
     private final String code;
     private final String message;
