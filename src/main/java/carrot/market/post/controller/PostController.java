@@ -1,20 +1,16 @@
 package carrot.market.post.controller;
 
 import carrot.market.common.baseutil.BaseResponse;
-import carrot.market.member.entity.Member;
-import carrot.market.member.service.MemberService;
+import carrot.market.member.entity.MemberEntity;
+import carrot.market.member.service.MemberServiceImpl;
 import carrot.market.post.dto.PostRequestDto;
 import carrot.market.post.dto.PostResponseDto;
 import carrot.market.post.entity.Post;
 import carrot.market.post.service.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
-import static carrot.market.common.HttpStatusResponseEntity.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,7 +18,7 @@ import static carrot.market.common.HttpStatusResponseEntity.*;
 public class PostController {
 
     private final PostService postService;
-    private final MemberService memberService;
+    private final MemberServiceImpl memberServiceImpl;
 
     /**
      * 게시물 등록
@@ -52,10 +48,10 @@ public class PostController {
     public BaseResponse<Void> updatePost(@Valid @RequestBody PostRequestDto postRequest,
                                                  @PathVariable Long postId,
                                                  Authentication authentication) {
-        Member member = memberService.findMemberByEmail(authentication.getName());
+        MemberEntity memberEntity = memberServiceImpl.findMemberByEmail(authentication.getName());
         Post post = postService.findPostById(postId);
 
-        postService.updatePost(post, postRequest, member);
+        postService.updatePost(post, postRequest, memberEntity);
 
         return new BaseResponse<>();
     }
@@ -65,10 +61,10 @@ public class PostController {
      */
     @DeleteMapping("/{postId}")
     public BaseResponse<Void> deletePost(@PathVariable Long postId, Authentication authentication) {
-        Member member = memberService.findMemberByEmail(authentication.getName());
+        MemberEntity memberEntity = memberServiceImpl.findMemberByEmail(authentication.getName());
         Post post = postService.findPostById(postId);
 
-        postService.removePost(post, member);
+        postService.removePost(post, memberEntity);
 
         return new BaseResponse<>();
     }

@@ -1,8 +1,8 @@
 package carrot.market.post.service;
 
 import carrot.market.common.baseutil.BaseException;
-import carrot.market.member.entity.Member;
-import carrot.market.member.repository.MemberRepository;
+import carrot.market.member.entity.MemberEntity;
+import carrot.market.member.infrastructure.MemberJpaRepository;
 import carrot.market.post.dto.PostRequestDto;
 import carrot.market.post.entity.Category;
 import carrot.market.post.entity.Post;
@@ -21,7 +21,7 @@ import static carrot.market.config.CacheKeyConfig.POST;
 public class PostService {
 
     private final PostRepository postRepository;
-    private final MemberRepository memberRepository;
+    private final MemberJpaRepository memberJpaRepository;
     private final CategoryService categoryService;
 
     public Post findPostById(Long postId) {
@@ -34,9 +34,9 @@ public class PostService {
      */
     @Transactional
     public void createNewPost(PostRequestDto postRequest, String email) {
-        Member member = memberRepository.findMemberByEmail(email).orElseThrow(() -> new BaseException(NOT_EXISTED_USER));
+        MemberEntity memberEntity = memberJpaRepository.findMemberByEmail(email).orElseThrow(() -> new BaseException(NOT_EXISTED_USER));
 
-        Post post = postRequest.toEntity(member);
+        Post post = postRequest.toEntity(memberEntity);
         /** 카테고리 캐시 조회 및 저장 **/
         Category category = categoryService.findCategoryByName(postRequest.getCategory());
 
@@ -59,8 +59,8 @@ public class PostService {
                     value = POST
             )
     })
-    public void updatePost(Post post, PostRequestDto postRequest, Member member) {
-        if(checkAuth(post, member)) {
+    public void updatePost(Post post, PostRequestDto postRequest, MemberEntity memberEntity) {
+        if(checkAuth(post, memberEntity)) {
             Category category = categoryService.findCategoryByName(postRequest.getCategory());
 
             post.updatePost(postRequest);
@@ -78,14 +78,14 @@ public class PostService {
                     value = POST
             )
     })
-    public void removePost(Post post, Member member) {
-        if (checkAuth(post, member)) {
+    public void removePost(Post post, MemberEntity memberEntity) {
+        if (checkAuth(post, memberEntity)) {
             post.removePost();
         }
     }
 
-    private boolean checkAuth(Post post, Member member) {
-        if(post.getAuthor().getId() != member.getId())
+    private boolean checkAuth(Post post, MemberEntity memberEntity) {
+        if(post.getAuthor().getId() != memberEntity.getId())
             throw new BaseException(AUTHORIZATION_FAIL);
         return true;
     }

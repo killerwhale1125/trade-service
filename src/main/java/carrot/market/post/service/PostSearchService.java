@@ -1,7 +1,7 @@
 package carrot.market.post.service;
 
 import carrot.market.common.annotation.AreaInfoRequired;
-import carrot.market.member.entity.Member;
+import carrot.market.member.entity.MemberEntity;
 import carrot.market.post.dto.AddressRequestDto;
 import carrot.market.post.dto.PostPageResponseDto;
 import carrot.market.post.dto.PostResponseDto;
@@ -41,8 +41,8 @@ public class PostSearchService {
             cacheManager = "redisCacheManager",
             condition = "#pageable.pageNumber == 0" // page가 0일 경우만 캐시 사용
     )
-    public PostPageResponseDto findAllByMemberAddress(Member member, Pageable pageable) {
-        Address address = member.getAddress();
+    public PostPageResponseDto findAllByMemberAddress(MemberEntity memberEntity, Pageable pageable) {
+        Address address = memberEntity.getAddress();
 
         Page<Post> posts
                 = postRepository.findAllByMemberAddress(address.getState(), address.getCity(), address.getTown(), pageable);
@@ -79,8 +79,8 @@ public class PostSearchService {
             cacheManager = "redisCacheManager",
             condition = "#pageable.pageNumber == 0"
     )
-    public PostPageResponseDto findAllByCategory(String category, Member member, Pageable pageable) {
-        Address address = member.getAddress();
+    public PostPageResponseDto findAllByCategory(String category, MemberEntity memberEntity, Pageable pageable) {
+        Address address = memberEntity.getAddress();
         Page<Post> posts = postRepository.findAllByCategory(category, address.getState(), address.getCity(), address.getTown(), pageable);
 
         return getPostPageRes(posts, pageable);

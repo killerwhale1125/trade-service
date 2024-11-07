@@ -1,11 +1,10 @@
 package carrot.market.post.controller;
 
-import carrot.market.member.entity.Member;
-import carrot.market.member.service.MemberService;
+import carrot.market.member.entity.MemberEntity;
+import carrot.market.member.service.MemberServiceImpl;
 import carrot.market.post.dto.AddressRequestDto;
 import carrot.market.post.dto.PostPageResponseDto;
 import carrot.market.post.service.PostSearchService;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -19,15 +18,15 @@ import org.springframework.web.bind.annotation.*;
 public class PostSearchController {
 
     private final PostSearchService postSearchService;
-    private final MemberService memberService;
+    private final MemberServiceImpl memberServiceImpl;
 
     /**
      * 회원의 주소 정보를 이용하여 해당 주소를 가진 게시물들을 페이지네이션 처리하여 응답
      */
     @GetMapping
     public ResponseEntity<PostPageResponseDto> getPosts(Authentication authentication, Pageable pageable) {
-        Member member = memberService.findMemberByEmail(authentication.getName());
-        PostPageResponseDto page = postSearchService.findAllByMemberAddress(member, pageable);
+        MemberEntity memberEntity = memberServiceImpl.findMemberByEmail(authentication.getName());
+        PostPageResponseDto page = postSearchService.findAllByMemberAddress(memberEntity, pageable);
         return ResponseEntity.ok(page);
     }
 
@@ -48,8 +47,8 @@ public class PostSearchController {
     public ResponseEntity<PostPageResponseDto> getPostsByCategory(@RequestParam("category") @NotEmpty String category,
                                                                     Authentication authentication,
                                                                     Pageable pageable) {
-        Member member = memberService.findMemberByEmail(authentication.getName());
-        PostPageResponseDto page = postSearchService.findAllByCategory(category, member, pageable);
+        MemberEntity memberEntity = memberServiceImpl.findMemberByEmail(authentication.getName());
+        PostPageResponseDto page = postSearchService.findAllByCategory(category, memberEntity, pageable);
 
         return ResponseEntity.ok(page);
     }
