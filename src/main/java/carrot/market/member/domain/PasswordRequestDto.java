@@ -1,4 +1,4 @@
-package carrot.market.member.dto;
+package carrot.market.member.domain;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;

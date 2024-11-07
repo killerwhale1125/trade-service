@@ -1,4 +1,4 @@
-package carrot.market.member.dto;
+package carrot.market.member.domain;
 
 import carrot.market.post.entity.Address;
 import carrot.market.post.entity.Location;

@@ -1,4 +1,4 @@
-package carrot.market.member.dto;
+package carrot.market.member.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +9,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class LoginRequestDto {
+public class MemberLogin {
     private String username;
     private String password;
 }

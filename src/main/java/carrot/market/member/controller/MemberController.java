@@ -1,26 +1,23 @@
 package carrot.market.member.controller;
 
 import carrot.market.common.baseutil.BaseResponse;
-import carrot.market.member.dto.*;
-import carrot.market.member.entity.Member;
-import carrot.market.member.service.MemberService;
+import carrot.market.member.controller.port.MemberService;
+import carrot.market.member.controller.response.MemberResponse;
+import carrot.market.member.domain.*;
+import carrot.market.member.entity.MemberEntity;
+import carrot.market.util.holder.PasswordEncoderHolder;
 import carrot.market.util.jwt.JwtToken;
 import carrot.market.util.jwt.JwtTokenProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import static carrot.market.common.HttpStatusResponseEntity.RESPONSE_OK;
-import static carrot.market.common.baseutil.BaseResponseStatus.DUPLICATE_EMAIL;
-import static carrot.market.common.baseutil.BaseResponseStatus.DUPLICATE_NICKNAME;
 
-
+@Builder
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -28,39 +25,23 @@ import static carrot.market.common.baseutil.BaseResponseStatus.DUPLICATE_NICKNAM
 public class MemberController {
 
     private final MemberService memberService;
-    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoderHolder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
     /** 회원 가입 **/
     @PostMapping
-    public BaseResponse<Object> registration(@RequestBody @Valid MemberDto memberDto) {
-        // 중복 체크
-        boolean isDuplicated = memberService.isDuplicatedEmail(memberDto.getEmail());
-        
-        // 아이디 중복 o
-        if(isDuplicated)
-            return new BaseResponse<>(DUPLICATE_EMAIL);
-
-        // 아이디 중복 X
-        Member member = MemberDto.toEntity(memberDto, passwordEncoder);
-        
-        // 회원 등록
-        memberService.registrationMember(member);
-        return new BaseResponse<>();
+    public BaseResponse<MemberResponse> create(@RequestBody @Valid MemberCreate memberCreate) {
+        memberService.isDuplicatedEmail(memberCreate.getEmail());
+        return new BaseResponse<>(MemberResponse.from(memberService.create(memberCreate)));
     }
 
     /**
      * 이메일 중복 체크
      */
     @GetMapping("/duplicate/{email}")
-    public BaseResponse<Object> isDuplicatedEmail(@PathVariable String email) {
+    public BaseResponse<Void> isDuplicatedEmail(@PathVariable String email) {
         // 중복 체크
-        boolean isDuplicated = memberService.isDuplicatedEmail(email);
-
-        // 아이디 중복 o
-        if(isDuplicated)
-            return new BaseResponse<>(DUPLICATE_NICKNAME);
-
+        memberService.isDuplicatedEmail(email);
         return new BaseResponse<>();
     }
 
@@ -68,15 +49,8 @@ public class MemberController {
      * 로그인
      */
     @PostMapping("/login")
-    public BaseResponse<JwtToken> login(@RequestBody @Valid LoginRequestDto loginRequestDto) {
-        String username = loginRequestDto.getUsername();
-        String password = loginRequestDto.getPassword();
-        /**
-         * 첫 로그인 시 JWT토큰 없이 요청하기 때문에 JWT 토큰을 발급함
-         */
-        JwtToken jwtToken = memberService.signIn(username, password);
-        log.debug("request username = {}, password = {}", username, password);
-        log.debug("jwtToken accessToken = {}, refreshToken = {}", jwtToken.getAccessToken(), jwtToken.getRefreshToken());
+    public BaseResponse<JwtToken> login(@RequestBody @Valid MemberLogin memberLogin) {
+        JwtToken jwtToken = memberService.signIn(memberLogin);
         return new BaseResponse<>(jwtToken);
     }
 
@@ -94,8 +68,8 @@ public class MemberController {
      */
     @GetMapping("/my-profile")
     public BaseResponse<ProfileResponseDto> getMemberProfile(Authentication authentication) {
-        Member member = memberService.findMemberByEmail(authentication.getName());
-        return new BaseResponse<>(ProfileResponseDto.of(member));
+        MemberEntity memberEntity = memberService.findMemberByEmail(authentication.getName());
+        return new BaseResponse<>(ProfileResponseDto.of(memberEntity));
     }
 
     /**
@@ -104,10 +78,10 @@ public class MemberController {
     @PutMapping("/my-profile")
     public BaseResponse<ProfileResponseDto> updateMemberProfile(Authentication authentication,
                                                                @RequestBody ProfileRequestDto profileRequest) {
-        Member member = memberService.findMemberByEmail(authentication.getName());
-        memberService.updateMemberProfile(member, profileRequest);
+        MemberEntity memberEntity = memberService.findMemberByEmail(authentication.getName());
+        memberService.updateMemberProfile(memberEntity, profileRequest);
 
-        return new BaseResponse<>(ProfileResponseDto.of(member));
+        return new BaseResponse<>(ProfileResponseDto.of(memberEntity));
     }
 
     /**
@@ -116,9 +90,9 @@ public class MemberController {
     @PutMapping("/password")
     public BaseResponse<Void> changePassword(Authentication authentication,
                                                      @RequestBody @Valid PasswordRequestDto passwordRequestDto) {
-        Member member = memberService.findMemberByEmail(authentication.getName());
-        if(memberService.isValidPassword(member, passwordRequestDto, passwordEncoder)) {
-            memberService.updateMemberPassword(member, passwordRequestDto, passwordEncoder);
+        MemberEntity memberEntity = memberService.findMemberByEmail(authentication.getName());
+        if(memberService.isValidPassword(memberEntity, passwordRequestDto, passwordEncoder)) {
+            memberService.updateMemberPassword(memberEntity, passwordRequestDto, passwordEncoder);
         }
 
         return new BaseResponse<>();
@@ -130,8 +104,8 @@ public class MemberController {
     @PutMapping("/my-location")
     public BaseResponse<Void> setMemberLocationAddress(Authentication authentication,
                                                                @RequestBody LocationAddressRequestDto locationAddressRequest) {
-        Member member = memberService.findMemberByEmail(authentication.getName());
-        memberService.setMemberLocationAddress(member, locationAddressRequest);
+        MemberEntity memberEntity = memberService.findMemberByEmail(authentication.getName());
+        memberService.setMemberLocationAddress(memberEntity, locationAddressRequest);
 
         return new BaseResponse<>();
     }

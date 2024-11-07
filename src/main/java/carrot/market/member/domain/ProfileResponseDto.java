@@ -1,6 +1,6 @@
-package carrot.market.member.dto;
+package carrot.market.member.domain;
 
-import carrot.market.member.entity.Member;
+import carrot.market.member.entity.MemberEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -12,10 +12,10 @@ public class ProfileResponseDto {
     private final String email;
     private final String nickname;
 
-    public static ProfileResponseDto of(Member member) {
+    public static ProfileResponseDto of(MemberEntity memberEntity) {
         return ProfileResponseDto.builder()
-                .email(member.getEmail())
-                .nickname(member.getNickname())
+                .email(memberEntity.getEmail())
+                .nickname(memberEntity.getNickname())
                 .build();
     }
 }
