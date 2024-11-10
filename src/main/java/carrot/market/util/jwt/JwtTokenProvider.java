@@ -3,15 +3,18 @@ package carrot.market.util.jwt;
 import carrot.market.common.annotation.RedisTransactional;
 import carrot.market.common.baseutil.BaseException;
 import carrot.market.common.baseutil.BaseResponseStatus;
+import carrot.market.util.holder.AuthenticationHolder;
+import carrot.market.util.holder.DateHolder;
+import carrot.market.util.holder.RedisTemplateHolder;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.RequiredArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,25 +26,32 @@ import org.springframework.util.StringUtils;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @Slf4j
+@Builder
 @Component
-@RequiredArgsConstructor
+@Getter
 public class JwtTokenProvider {
 
-    @Value("${security.jwt.secret-key}")
-    private String key;
+    private final String key;
+    private final long accessExpirationTime;
+    private final long refreshExpirationTime;
+    private final RedisTemplateHolder redisTemplate;
+    private final DateHolder dateHolder;
 
-    @Value("${security.jwt.token.access-expiration-time}")
-    private long accessExpirationTime;
-
-    @Value("${security.jwt.token.refresh-expiration-time}")
-    private long refreshExpirationTime;
-
-    private final RedisTemplate<String, String> redisTemplate;
+    public JwtTokenProvider(@Value("${security.jwt.secret-key}") String key,
+                            @Value("${security.jwt.token.access-expiration-time}") long accessExpirationTime,
+                            @Value("${security.jwt.token.refresh-expiration-time}") long refreshExpirationTime,
+                            RedisTemplateHolder redisTemplate,
+                            DateHolder dateHolder) {
+        this.key = key;
+        this.accessExpirationTime = accessExpirationTime;
+        this.refreshExpirationTime = refreshExpirationTime;
+        this.redisTemplate = redisTemplate;
+        this.dateHolder = dateHolder;
+    }
 
     /**
      * token 추출
@@ -57,7 +67,7 @@ public class JwtTokenProvider {
     /**
      * Authentication 정보로 AccessToken, RefreshToken을 생성
      */
-    public JwtToken generateToken(Authentication authentication) {
+    public JwtToken generateToken(AuthenticationHolder authentication) {
 
         /**
          * Access와 Refresh 토큰을 생성.
@@ -126,11 +136,13 @@ public class JwtTokenProvider {
     /**
      * Access 토큰 생성
      */
-    public String createAccessToken(Authentication authentication){
+    public String createAccessToken(AuthenticationHolder authentication){
         Claims claims = Jwts.claims().setSubject(authentication.getName());
-        Date now = new Date();
-        Date expireDate = new Date(now.getTime() + accessExpirationTime);
+        Date now = dateHolder.createDate();
+        Date expireDate = dateHolder.createExpireDate(now.getTime(), accessExpirationTime);
 
+        log.info("date.getTime() : {}", now.getTime());
+        log.info("date.expireDate() : {}", expireDate.getTime());
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(now)
@@ -143,10 +155,10 @@ public class JwtTokenProvider {
      * Refresh 토큰 생성
      */
     @RedisTransactional
-    public String createRefreshToken(Authentication authentication) {
+    public String createRefreshToken(AuthenticationHolder authentication) {
         Claims claims = Jwts.claims().setSubject(authentication.getName());
-        Date now = new Date();
-        Date expireDate = new Date(now.getTime() + refreshExpirationTime);
+        Date now = dateHolder.createDate();
+        Date expireDate = dateHolder.createExpireDate(now.getTime(), refreshExpirationTime);
 
         /**
          * Refresh 토큰 생성
@@ -158,11 +170,7 @@ public class JwtTokenProvider {
                 .signWith(SignatureAlgorithm.HS256, key)
                 .compact();
 
-        redisTemplate.opsForValue().set(
-                authentication.getName(),
-                refreshToken,
-                refreshExpirationTime,
-                TimeUnit.MILLISECONDS);
+        redisTemplate.saveRefreshToken(refreshToken, authentication.getName(), refreshExpirationTime);
 
         return refreshToken;
     }
@@ -185,7 +193,9 @@ public class JwtTokenProvider {
          * Refresh 만료 시 Redis에 자동 삭제되기 때문에 서버 측 검증 X
          * null -> 만료
          */
-        String redisRefreshToken = redisTemplate.opsForValue().get(username);
+        String redisRefreshToken = redisTemplate
+                .getRefreshToken(username)
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.TOKEN_ISEMPTY));
 
         /**
          * Refresh 토큰 null 체크 & 동등성 여부 판단
@@ -198,7 +208,7 @@ public class JwtTokenProvider {
          * 토큰에 담긴 유저 정보로 Authentication 객체 조회
          * 보안을 고려하여 Refresh 토큰도 만료되지 않았더라도 재발급
          */
-        Authentication authentication = getAuthenticationFromClaims(claims);
+        AuthenticationHolder authentication = (AuthenticationHolder) getAuthenticationFromClaims(claims);
         String newAccessToken = createAccessToken(authentication);
         String newRefreshToken = createRefreshToken(authentication);
 
