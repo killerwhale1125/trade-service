@@ -1,7 +1,7 @@
 package carrot.market.common.aop;
 
 import carrot.market.common.baseutil.BaseException;
-import carrot.market.member.entity.Member;
+import carrot.market.member.entity.MemberEntity;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -31,14 +31,17 @@ public class AreaInfoAspect {
      * **/
     @Before("@annotation(carrot.market.common.annotation.AreaInfoRequired)")
     public void isValidAreaInfo(JoinPoint joinPoint) {
-        Member member = Arrays.stream(joinPoint.getArgs())
-                .filter(obj1 -> Member.class.isInstance(obj1))
-                .map(obj -> Member.class.cast(obj))
+        MemberEntity memberEntity = Arrays.stream(joinPoint.getArgs())
+                .filter(obj1 -> MemberEntity.class.isInstance(obj1))
+                .map(obj -> MemberEntity.class.cast(obj))
                 .findFirst()
                 .orElseThrow(() -> new BaseException(NOT_EXISTED_USER));
 
 
-        if(member.getAddress() == null || member.getLocation() == null) {
+//        if(member.getAddress() == null || member.getLocation() == null) {
+//            throw new BaseException(NOT_EXISTED_AREA);
+//        }
+        if(memberEntity.getAddress() == null) {
             throw new BaseException(NOT_EXISTED_AREA);
         }
     }
