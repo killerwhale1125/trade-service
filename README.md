@@ -29,6 +29,7 @@ Java, Spring Boot, Spring AOP, IntelliJ, Gradle, JPA, Querydsl, Redis, Nginx, Je
 - Redis 작업 이후 다른 작업의 예외로 인해 모든 데이터를 Rollback 시켜야할 때 Redis Rollback의 불가능
 - Redis 데이터 일관성 문제
 
+<br/>
 **개선사항**
 
 ![image](https://github.com/user-attachments/assets/bd4d5817-2f6b-4e52-87ae-11a862714be2)
@@ -44,10 +45,12 @@ Java, Spring Boot, Spring AOP, IntelliJ, Gradle, JPA, Querydsl, Redis, Nginx, Je
 - 메인페이지 조회 요청 시 여러개의 게시물 조회 요청으로 인한 느린 페이지 응답
 - 사용자 수가 증가함에 있어 조회 시 성능 문제점
 
+<br/>
 **개선사항**
 - 캐싱에 적합한 조건에 한하여 Redis 캐싱 적용
 - ScaleOut을 통하여 로드밸런싱 트래픽 분산
 
+<br/>
 **캐싱 성능 개선 결과**
 
 ![image](https://github.com/user-attachments/assets/e0b47d95-bffb-4391-8d43-27d6ee251d12)
@@ -56,6 +59,7 @@ Java, Spring Boot, Spring AOP, IntelliJ, Gradle, JPA, Querydsl, Redis, Nginx, Je
 - Latency : 3,363.13ms → 1,012.79ms ( 3.32배 단축 )
 - 테스트 횟수 : 3,249회 -> 11,521회 ( 3.55배 개선 )
 
+<br/>
 **캐싱 & ScaleOut 성능 개선 결과**
 
 ![image](https://github.com/user-attachments/assets/48ec0a1a-32e6-4e83-9c44-ee166e35b601)
