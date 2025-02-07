@@ -36,6 +36,8 @@ Java, Spring Boot, Spring AOP, IntelliJ, Gradle, JPA, Querydsl, Redis, Nginx, Je
 - AOP Proxy를 활용해 Redis 작업 전 / 후로 나뉘어 트랜잭션을 관리한다.
 - AOP로 비즈니스 코드와 공통 관심사를 분리해 비즈니스 코드에 집중할 수 있으며, 코드의 간결함을 유지한다.
 
+<br/>
+
 **2. 자주 변경되지 않는 데이터 성능 향상을 위한 Redis 캐싱과 ScaleOut 성능 개선**
 
 **문제점**
@@ -46,13 +48,18 @@ Java, Spring Boot, Spring AOP, IntelliJ, Gradle, JPA, Querydsl, Redis, Nginx, Je
 - 캐싱에 적합한 조건에 한하여 Redis 캐싱 적용
 - ScaleOut을 통하여 로드밸런싱 트래픽 분산
 
-**성능 개선 결과**
+**캐싱 성능 개선 결과**
 
 ![image](https://github.com/user-attachments/assets/e0b47d95-bffb-4391-8d43-27d6ee251d12)
-> 캐싱 적용
 
-- TPS : 231.7 -> 822.1 ( 3.55배 증가 )
+- TPS : 231.7 -> 822.1 ( 3.55배 개선 )
 - Latency : 3,363.13ms → 1,012.79ms ( 3.32배 단축 )
-- 테스트 횟수 : 3,249번 -> 11,521번 ( 3.55배 증가 )
+- 테스트 횟수 : 3,249회 -> 11,521회 ( 3.55배 개선 )
 
+**캐싱 & ScaleOut 성능 개선 결과**
 
+![image](https://github.com/user-attachments/assets/48ec0a1a-32e6-4e83-9c44-ee166e35b601)
+
+- TPS : 231.7 -> 1,091.2 ( 4.71배 개선 )
+- Latency : 3,363.13ms → 462.75ms ( 7.27배 단축 )
+- 테스트 횟수 : 3,249회 -> 19,171회 ( 5.90배 개선 )
