@@ -8,16 +8,51 @@
 
 이러한 궁금증으로 인하여 간단히 프로젝트를 진행하였습니다.
 <br/>
-### ✅ 사용 기술 및 개발 환경
+
+### ✅ 프로젝트 전체 구성도
+![image](https://github.com/user-attachments/assets/7990f15f-3978-4592-8f36-4d79329915d6)
+
+### ✅ 기술 스택
 
 Java, Spring Boot, Spring AOP, IntelliJ, Gradle, JPA, Querydsl, Redis, Nginx, Jenkins, Docker, AWS EC2, RDS MySQL
 
-### ✅ 프로젝트를 진행하며 고민한 Technical Issue
+### ✅ 프로젝트 개선 사항 정리 블로그
 
 * [불안정한 Redis 트랜잭션의 원자성과 AOP Proxy 해결책](https://killerwhale1125.github.io/posts/Redis-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98%EC%9D%98-%ED%95%9C%EA%B3%84%EB%A1%9C-%EC%9D%B8%ED%95%9C-%ED%95%B4%EA%B2%B0%EC%B1%85/)
 * [Redis 캐싱을 활용한 게시물 조회 성능 증가와 로드밸런싱 활용](https://killerwhale1125.github.io/posts/%EC%A1%B0%EA%B1%B4%EB%B6%80-%EC%BA%90%EC%8B%B1-%EB%B0%8F-%EC%84%B1%EB%8A%A5-%ED%85%8C%EC%8A%A4%ED%8A%B8/)
 
-### ✅ 프로젝트 전체 구성도
-![image](https://github.com/user-attachments/assets/7990f15f-3978-4592-8f36-4d79329915d6)
+### ✅ 프로젝트 개선 사항 및 트러블 슈팅
+
+**1. 불안정한 Redis 트랜잭션에 AOP Porxy 도입하여 Atomic 보장**
+
+**문제점**
+- Redis 작업 이후 다른 작업의 예외로 인해 모든 데이터를 Rollback 시켜야할 때 Redis Rollback의 불가능
+- Redis 데이터 일관성 문제
+
+**개선사항**
+
+![image](https://github.com/user-attachments/assets/bd4d5817-2f6b-4e52-87ae-11a862714be2)
+
+- AOP Proxy를 활용해 Redis 작업 전 / 후로 나뉘어 트랜잭션을 관리한다.
+- AOP로 비즈니스 코드와 공통 관심사를 분리해 비즈니스 코드에 집중할 수 있으며, 코드의 간결함을 유지한다.
+
+**2. 자주 변경되지 않는 데이터 성능 향상을 위한 Redis 캐싱과 ScaleOut 성능 개선**
+
+**문제점**
+- 메인페이지 조회 요청 시 여러개의 게시물 조회 요청으로 인한 느린 페이지 응답
+- 사용자 수가 증가함에 있어 조회 시 성능 문제점
+
+**개선사항**
+- 캐싱에 적합한 조건에 한하여 Redis 캐싱 적용
+- ScaleOut을 통하여 로드밸런싱 트래픽 분산
+
+**성능 개선 결과**
+
+![image](https://github.com/user-attachments/assets/e0b47d95-bffb-4391-8d43-27d6ee251d12)
+> 캐싱 적용
+
+- TPS : 231.7 -> 822.1 ( 3.55배 증가 )
+- Latency : 3,363.13ms → 1,012.79ms ( 3.32배 단축 )
+- 테스트 횟수 : 3,249번 -> 11,521번 ( 3.55배 증가 )
 
 
