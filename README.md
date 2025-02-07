@@ -14,7 +14,7 @@ Java, Spring Boot, Spring AOP, IntelliJ, Gradle, JPA, Querydsl, Redis, Nginx, Je
 
 ### ✅ 프로젝트를 진행하며 고민한 Technical Issue
 
-* [Redis 트랜잭션 Rollback 미지원으로 인한 AOP 안전성 확보 및 분산락 적용](https://killerwhale1125.github.io/posts/Redis-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98%EC%9D%98-%ED%95%9C%EA%B3%84%EB%A1%9C-%EC%9D%B8%ED%95%9C-%ED%95%B4%EA%B2%B0%EC%B1%85/)
+* [불안정한 Redis 트랜잭션의 원자성과 AOP Proxy 해결책](https://killerwhale1125.github.io/posts/Redis-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98%EC%9D%98-%ED%95%9C%EA%B3%84%EB%A1%9C-%EC%9D%B8%ED%95%9C-%ED%95%B4%EA%B2%B0%EC%B1%85/)
 * [Redis 캐싱을 활용한 게시물 조회 성능 증가와 로드밸런싱 활용](https://killerwhale1125.github.io/posts/%EC%A1%B0%EA%B1%B4%EB%B6%80-%EC%BA%90%EC%8B%B1-%EB%B0%8F-%EC%84%B1%EB%8A%A5-%ED%85%8C%EC%8A%A4%ED%8A%B8/)
 
 ### ✅ 프로젝트 전체 구성도
