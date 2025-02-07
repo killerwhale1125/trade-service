@@ -44,26 +44,24 @@ Java, Spring Boot, Spring AOP, IntelliJ, Gradle, JPA, Querydsl, Redis, Nginx, Je
 **문제점**
 - 메인페이지 조회 요청 시 여러개의 게시물 조회 요청으로 인한 느린 페이지 응답
 - 사용자 수가 증가함에 있어 조회 시 성능 문제점
-
 <br/>
+
 **개선사항**
 - 캐싱에 적합한 조건에 한하여 Redis 캐싱 적용
 - ScaleOut을 통하여 로드밸런싱 트래픽 분산
-
 <br/>
+
 **캐싱 성능 개선 결과**
 
 ![image](https://github.com/user-attachments/assets/e0b47d95-bffb-4391-8d43-27d6ee251d12)
-
 - TPS : 231.7 -> 822.1 ( 3.55배 개선 )
 - Latency : 3,363.13ms → 1,012.79ms ( 3.32배 단축 )
 - 테스트 횟수 : 3,249회 -> 11,521회 ( 3.55배 개선 )
-
 <br/>
+
 **캐싱 & ScaleOut 성능 개선 결과**
 
 ![image](https://github.com/user-attachments/assets/48ec0a1a-32e6-4e83-9c44-ee166e35b601)
-
 - TPS : 231.7 -> 1,091.2 ( 4.71배 개선 )
 - Latency : 3,363.13ms → 462.75ms ( 7.27배 단축 )
 - 테스트 횟수 : 3,249회 -> 19,171회 ( 5.90배 개선 )
