@@ -1,5 +1,6 @@
 package carrot.market.member.entity;
 
+import carrot.market.common.BaseTimeEntity;
 import carrot.market.member.dto.request.LocationAddressDto;
 import carrot.market.member.dto.request.MemberCreate;
 import carrot.market.member.dto.request.MemberLogin;
@@ -16,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member {
+public class Member extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")

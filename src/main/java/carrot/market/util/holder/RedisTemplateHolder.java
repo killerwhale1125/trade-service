@@ -1,6 +1,5 @@
 package carrot.market.util.holder;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface RedisTemplateHolder {

@@ -1,18 +1,45 @@
 spring:
-  application:
-    name: danggn      # 어플리케이션 이름 = Github 레포지토리에서 관리하는 파일 애플리케이션 이름
-  profiles:
-    active: local     # 애플리케이션 환경 = local, dev
-  config:
-    import: optional:configserver:http://192.168.45.106:8888 # import:optional:configserver사용 -> Spring cloud config server 주소
+  datasource:
+    jdbc-url: jdbc:mysql://127.0.0.1:3306/test?allowPublicKeyRetrieval=true&useSSL=false
+    username: test
+    password: test
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true  # 쿼리 확인용
+        dialect: org.hibernate.dialect.MySQL8Dialect
+  redis:
+    session:
+      host: 127.0.0.1
+      port: 6379
+    cache:
+      host: 127.0.0.1
+      port: 6380
 
-# 클라이언트 코드에서 Actuator 설정
 management:
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: refresh
 
-logging:
-  level:
-    org.springframework.cloud.config: DEBUG
+logging.level:
+  org.hibernate.SQL: debug
+# org.hibernate.type: trace
+
+# 트랜잭션 관리 설정
+#transaction:
+#  management:
+#    enable: true
+
+security:
+  bcrypt:
+    strength: 12
+  jwt:
+    secret-key: bXlTZWNyZXRLZbXlTZWNyZXRLZbXlTZWNyZXRLZbXlTZWNyZXRLZ
+    token:
+      access-expiration-time: 1800000 # 30분 (밀리초 단위)
+      refresh-expiration-time: 1209600000 # 14일 (밀리초 단위)

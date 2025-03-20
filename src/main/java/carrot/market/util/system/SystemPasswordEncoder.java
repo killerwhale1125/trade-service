@@ -17,7 +17,7 @@ public class SystemPasswordEncoder implements PasswordEncoderHolder {
     }
 
     @Override
-    public boolean isNotMatchPwd(String oldPassword, String password) {
-        return passwordEncoder.matches(oldPassword, password);
+    public boolean isNotMatchPwd(String requestPwd, String pwd) {
+        return passwordEncoder.matches(passwordEncoder.encode(requestPwd), pwd);
     }
 }

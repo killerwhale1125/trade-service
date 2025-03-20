@@ -28,6 +28,10 @@ public class PostResponseDto {
     private Address address;
     private Location location;
 
+    private int price;
+    private int stock;
+    private String itemName;
+
     private LocalDateTime createdTime;
     private LocalDateTime modifiedTime;
 
@@ -45,6 +49,9 @@ public class PostResponseDto {
                 .category(post.getCategory().getCategoryName())
                 .address(post.getAddress())
                 .location(post.getLocation())
+                .price(post.getPrice())
+                .stock(post.getStock())
+                .itemName(post.getItemName())
                 .build();
     }
 }

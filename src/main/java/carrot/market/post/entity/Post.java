@@ -5,16 +5,12 @@ import carrot.market.member.entity.Member;
 import carrot.market.post.dto.PostRequestDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
 
 @Getter
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 public class Post extends BaseTimeEntity {
 
     @Id
@@ -38,6 +34,10 @@ public class Post extends BaseTimeEntity {
     @Lob
     private String content;
 
+    private int price;
+    private int stock;
+    private String itemName;
+
     @Embedded
     private Address address;
 
@@ -54,45 +54,24 @@ public class Post extends BaseTimeEntity {
     @NotNull
     private int favoriteCount;
 
-    @Builder
-    public Post(String title, TradeStatus status, Member author,
-                String content, Address address, Location location) {
-        this.title = title;
-        this.status = status;
-        this.author = author;
-        this.content = content;
-        this.address = address;
-        this.location = location;
-        this.viewCount = 0;
-        this.commentCount = 0;
-        this.favoriteCount = 0;
+    public static Post create(PostRequestDto postRequest, Member member, Category category) {
+        return Post.builder()
+                .title(postRequest.getTitle())
+                .content(postRequest.getContent())
+                .author(member)
+                .price(postRequest.getPrice())
+                .stock(postRequest.getStock())
+                .itemName(postRequest.getItemName())
+                .address(member.getAddress())
+                .status(TradeStatus.SALE)
+                .category(category)
+                .build();
     }
 
-    @Builder
-    public Post(Long id, String title, Category category, TradeStatus status,
-                Member author, String content, Address address, Location location,
-                LocalDateTime createdTime, LocalDateTime modifiedTime) {
-        this.id = id;
-        this.title = title;
-        this.category = category;
-        this.status = status;
-        this.author = author;
-        this.content = content;
-        this.address = address;
-        this.location = location;
-        this.createdTime = createdTime;
-        this.modifiedTime = modifiedTime;
-    }
-
-    public void addCategory(Category category) {
-        this.category = category;
-        // 양방향 연결관계 설정
-        category.getPosts().add(this);
-    }
-
-    public void updatePost(PostRequestDto postRequest) {
+    public void update(PostRequestDto postRequest, Category category) {
         this.title = postRequest.getTitle();
         this.content = postRequest.getContent();
+        this.category = category;
     }
 
     public void setCategory(Category category) {

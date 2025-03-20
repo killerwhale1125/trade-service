@@ -1,19 +1,13 @@
 package carrot.market.config;
 
-import carrot.market.util.RoutingDataSource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.*;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
-import java.util.HashMap;
-
-import static carrot.market.util.DatabaseType.*;
 
 /**
  * 읽기 전용 트랜잭션은 SLAVE DB 사용

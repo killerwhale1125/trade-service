@@ -7,7 +7,7 @@ import carrot.market.favorite.repository.FavoriteRepository;
 import carrot.market.member.entity.Member;
 import carrot.market.member.repository.MemberJpaRepository;
 import carrot.market.post.entity.Post;
-import carrot.market.post.repository.PostRepository;
+import carrot.market.post.repository.PostJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +21,7 @@ import static carrot.market.common.baseutil.BaseResponseStatus.*;
 public class FavoriteService {
 
     private final MemberJpaRepository memberJpaRepository;
-    private final PostRepository boardRepository;
+    private final PostJpaRepository boardRepository;
     private final FavoriteRepository favoriteRepository;
 
     @Transactional

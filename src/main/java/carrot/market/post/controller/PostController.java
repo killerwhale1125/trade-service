@@ -1,11 +1,9 @@
 package carrot.market.post.controller;
 
 import carrot.market.common.baseutil.BaseResponse;
-import carrot.market.member.entity.Member;
 import carrot.market.member.service.MemberServiceImpl;
 import carrot.market.post.dto.PostRequestDto;
 import carrot.market.post.dto.PostResponseDto;
-import carrot.market.post.entity.Post;
 import carrot.market.post.service.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

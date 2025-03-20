@@ -38,12 +38,10 @@ public class PostService {
     public void create(PostRequestDto postRequest, String email) {
         Member member = memberRepository.findByEmail(email);
 
-        Post post = postRequest.toEntity(member);
         /** 카테고리 캐시 조회 및 저장 **/
         Category category = categoryService.findCategoryByName(postRequest.getCategory());
 
-        post.addCategory(category);
-
+        Post post = Post.create(postRequest, member, category);
         postJpaRepository.save(post);
     }
 
@@ -68,9 +66,8 @@ public class PostService {
 
         if(checkAuth(post, member)) {
             Category category = categoryService.findCategoryByName(postRequest.getCategory());
-
-            post.updatePost(postRequest);
-            post.setCategory(category);
+            /* Dirty Checking */
+            post.update(postRequest, category);
         }
     }
 

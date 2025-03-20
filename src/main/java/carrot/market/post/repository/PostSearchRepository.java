@@ -1,6 +1,5 @@
 package carrot.market.post.repository;
 
-import carrot.market.post.entity.Address;
 import carrot.market.post.entity.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

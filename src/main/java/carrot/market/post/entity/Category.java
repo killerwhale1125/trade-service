@@ -6,9 +6,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 @Getter
 @Entity
@@ -19,9 +16,6 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id")
     private Long id;
-
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    private List<Post> posts = new ArrayList<>();
 
     private String categoryName;
 

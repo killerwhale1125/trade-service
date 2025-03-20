@@ -24,6 +24,6 @@ public class SystemRedisTemplate implements RedisTemplateHolder {
 
     @Override
     public Optional<String> getRefreshToken(String username) {
-        return Optional.of(redisTemplate.opsForValue().get(username));
+        return Optional.ofNullable(redisTemplate.opsForValue().get(username));
     }
 }
