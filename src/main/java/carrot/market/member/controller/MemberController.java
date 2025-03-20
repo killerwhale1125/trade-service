@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/api/member")
+@RestController
 public class MemberController {
 
     private final MemberService memberService;
