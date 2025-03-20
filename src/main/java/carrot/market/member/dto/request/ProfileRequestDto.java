@@ -1,4 +1,4 @@
-package carrot.market.member.domain;
+package carrot.market.member.dto.request;
 
 import lombok.Builder;
 import lombok.Getter;

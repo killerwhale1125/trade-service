@@ -1,4 +1,4 @@
-package carrot.market.member.domain;
+package carrot.market.member.dto.request;
 
 import carrot.market.post.entity.Address;
 import carrot.market.post.entity.Location;
@@ -8,7 +8,7 @@ import lombok.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
-public class LocationAddressRequestDto {
+public class LocationAddressDto {
 
     private String state;
     private String city;

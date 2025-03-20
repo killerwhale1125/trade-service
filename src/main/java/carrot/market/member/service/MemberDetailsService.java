@@ -1,9 +1,9 @@
 package carrot.market.member.service;
 
 import carrot.market.common.baseutil.BaseException;
-import carrot.market.member.entity.MemberEntity;
+import carrot.market.member.entity.Member;
 import carrot.market.member.entity.MemberDetails;
-import carrot.market.member.infrastructure.MemberJpaRepository;
+import carrot.market.member.repository.MemberJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,7 +23,7 @@ public class MemberDetailsService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        MemberEntity memberEntity = memberJpaRepository.findMemberByEmail(email).orElseThrow(() -> new BaseException(NOT_EXISTED_USER));
-        return new MemberDetails(memberEntity);
+        Member member = memberJpaRepository.findMemberByEmail(email).orElseThrow(() -> new BaseException(NOT_EXISTED_USER));
+        return new MemberDetails(member);
     }
 }

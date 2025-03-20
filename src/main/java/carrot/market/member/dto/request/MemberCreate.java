@@ -1,18 +1,14 @@
-package carrot.market.member.domain;
+package carrot.market.member.dto.request;
 
-import carrot.market.member.entity.MemberEntity;
-import carrot.market.post.entity.Address;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Getter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor
-public class MemberDto {
+public class MemberCreate {
     @NotEmpty
     @Email(message = "유효하지 않은 이메일 형식입니다.",
             regexp = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")
@@ -33,12 +29,13 @@ public class MemberDto {
     @NotEmpty
     private String town;
 
-    public static MemberEntity toEntity(MemberDto memberDto, PasswordEncoder passwordEncoder) {
-        return MemberEntity.builder()
-                .email(memberDto.getEmail())
-                .password(passwordEncoder.encode(memberDto.getPassword()))
-                .nickname(memberDto.getNickname())
-                .address(new Address(memberDto.getState(), memberDto.getCity(), memberDto.getTown()))
-                .build();
+    @Builder
+    public MemberCreate(String email, String password, String nickname, String state, String city, String town) {
+        this.email = email;
+        this.password = password;
+        this.nickname = nickname;
+        this.state = state;
+        this.city = city;
+        this.town = town;
     }
 }

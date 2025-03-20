@@ -1,56 +1,45 @@
 package carrot.market.member.controller;
 
 import carrot.market.common.baseutil.BaseResponse;
-import carrot.market.member.controller.port.MemberService;
-import carrot.market.member.controller.response.MemberResponse;
-import carrot.market.member.domain.*;
-import carrot.market.member.entity.MemberEntity;
+import carrot.market.member.dto.request.*;
+import carrot.market.member.dto.response.MemberResponse;
+import carrot.market.member.entity.Member;
+import carrot.market.member.service.MemberService;
 import carrot.market.util.holder.PasswordEncoderHolder;
 import carrot.market.util.jwt.JwtToken;
 import carrot.market.util.jwt.JwtTokenProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-
-@RestController
-@RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/api/members")
+@RequiredArgsConstructor
+@RequestMapping("/api/member")
 public class MemberController {
 
     private final MemberService memberService;
     private final PasswordEncoderHolder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
-    /** 회원 가입 **/
+    /* 회원 가입 */
     @PostMapping
     public BaseResponse<MemberResponse> create(@RequestBody @Valid MemberCreate memberCreate) {
-        memberService.isDuplicatedEmail(memberCreate.getEmail());
-        return new BaseResponse<>(MemberResponse.from(memberService.create(memberCreate)));
+        return new BaseResponse<>(memberService.create(memberCreate));
     }
 
-    /**
-     * 이메일 중복 체크
-     */
+    /* 이메일 중복 체크 */
     @GetMapping("/duplicate/{email}")
-    public BaseResponse<Void> isDuplicatedEmail(@PathVariable String email) {
-        // 중복 체크
-        memberService.isDuplicatedEmail(email);
-        return new BaseResponse<>();
+    public BaseResponse<Boolean> isDuplicatedEmail(@PathVariable String email) {
+        return new BaseResponse<>(memberService.isDuplicatedEmail(email));
     }
 
-    /**
-     * 로그인
-     */
+    /* 로그인 */
     @PostMapping("/login")
     public BaseResponse<JwtToken> login(@RequestBody @Valid MemberLogin memberLogin) {
-        JwtToken jwtToken = memberService.signIn(memberLogin);
-        return new BaseResponse<>(jwtToken);
+        return new BaseResponse<>(memberService.login(memberLogin));
     }
 
     /**
@@ -67,8 +56,8 @@ public class MemberController {
      */
     @GetMapping("/my-profile")
     public BaseResponse<ProfileResponseDto> getMemberProfile(Authentication authentication) {
-        MemberEntity memberEntity = memberService.findMemberByEmail(authentication.getName());
-        return new BaseResponse<>(ProfileResponseDto.of(memberEntity));
+        Member member = memberService.findMemberByEmail(authentication.getName());
+        return new BaseResponse<>(ProfileResponseDto.of(member));
     }
 
     /**
@@ -77,10 +66,10 @@ public class MemberController {
     @PutMapping("/my-profile")
     public BaseResponse<ProfileResponseDto> updateMemberProfile(Authentication authentication,
                                                                @RequestBody ProfileRequestDto profileRequest) {
-        MemberEntity memberEntity = memberService.findMemberByEmail(authentication.getName());
-        memberService.updateMemberProfile(memberEntity, profileRequest);
+        Member member = memberService.findMemberByEmail(authentication.getName());
+        memberService.updateMemberProfile(member, profileRequest);
 
-        return new BaseResponse<>(ProfileResponseDto.of(memberEntity));
+        return new BaseResponse<>(ProfileResponseDto.of(member));
     }
 
     /**
@@ -88,10 +77,10 @@ public class MemberController {
      */
     @PutMapping("/password")
     public BaseResponse<Void> changePassword(Authentication authentication,
-                                                     @RequestBody @Valid PasswordRequestDto passwordRequestDto) {
-        MemberEntity memberEntity = memberService.findMemberByEmail(authentication.getName());
-        if(memberService.isValidPassword(memberEntity, passwordRequestDto, passwordEncoder)) {
-            memberService.updateMemberPassword(memberEntity, passwordRequestDto, passwordEncoder);
+                                                     @RequestBody @Valid PasswordDto passwordDto) {
+        Member member = memberService.findMemberByEmail(authentication.getName());
+        if(memberService.isValidPassword(member, passwordDto, passwordEncoder)) {
+            memberService.updateMemberPassword(member, passwordDto, passwordEncoder);
         }
 
         return new BaseResponse<>();
@@ -102,9 +91,9 @@ public class MemberController {
      */
     @PutMapping("/my-location")
     public BaseResponse<Void> setMemberLocationAddress(Authentication authentication,
-                                                               @RequestBody LocationAddressRequestDto locationAddressRequest) {
-        MemberEntity memberEntity = memberService.findMemberByEmail(authentication.getName());
-        memberService.setMemberLocationAddress(memberEntity, locationAddressRequest);
+                                                               @RequestBody LocationAddressDto locationAddressRequest) {
+        Member member = memberService.findMemberByEmail(authentication.getName());
+        memberService.setMemberLocationAddress(member, locationAddressRequest);
 
         return new BaseResponse<>();
     }
