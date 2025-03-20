@@ -21,13 +21,13 @@ import static carrot.market.util.DatabaseType.*;
  * @EnableTransactionManagement 는 @Transactional 어노테이션을 찾아 트랜잭션 범위를 활성화
  */
 @Configuration  // -> 스프링부트 자동구성으로 인하여 생략 가능
-@EnableTransactionManagement
+//@EnableTransactionManagement
 @RequiredArgsConstructor
-@ComponentScan(basePackages = {"carrot.market"})
+//@ComponentScan(basePackages = {"carrot.market"})
 public class DataSourceConfig {
 
     @Bean
-    @ConfigurationProperties(prefix = "spring.datasource.master")
+    @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource masterDataSource() {
         return DataSourceBuilder.create().build();
     }
