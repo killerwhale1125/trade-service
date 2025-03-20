@@ -5,7 +5,7 @@ import carrot.market.favorite.dto.request.FavoriteListResponseDto;
 import carrot.market.favorite.entity.Favorite;
 import carrot.market.favorite.repository.FavoriteRepository;
 import carrot.market.member.entity.Member;
-import carrot.market.member.repository.MemberRepository;
+import carrot.market.member.repository.MemberJpaRepository;
 import carrot.market.post.entity.Post;
 import carrot.market.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,13 +20,13 @@ import static carrot.market.common.baseutil.BaseResponseStatus.*;
 @RequiredArgsConstructor
 public class FavoriteService {
 
-    private final MemberRepository memberRepository;
+    private final MemberJpaRepository memberJpaRepository;
     private final PostRepository boardRepository;
     private final FavoriteRepository favoriteRepository;
 
     @Transactional
     public void addFavorite(String email, Long boardId) {
-        Member member = memberRepository.findMemberByEmail(email).orElseThrow(() -> new BaseException(NOT_EXISTED_USER));
+        Member member = memberJpaRepository.findByEmail(email).orElseThrow(() -> new BaseException(NOT_EXISTED_USER));
         Post post = boardRepository.findById(boardId).orElseThrow(() -> new BaseException(NOT_EXISTED_POST));
         favoriteRepository.findFavoriteByMemberAndPost(member, post).ifPresentOrElse(
                 favorite -> {
@@ -35,7 +35,7 @@ public class FavoriteService {
                 },
                 () -> {
                     post.addFavoriteCount();
-                    favoriteRepository.save(Favorite.builder().post(post).member(member).build());
+                    favoriteRepository.save(Favorite.builder().post(post).build());
                 }
         );
     }
