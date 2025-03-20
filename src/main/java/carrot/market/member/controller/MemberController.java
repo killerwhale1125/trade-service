@@ -9,6 +9,7 @@ import carrot.market.util.holder.PasswordEncoderHolder;
 import carrot.market.util.jwt.JwtToken;
 import carrot.market.util.jwt.JwtTokenProvider;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,17 +39,17 @@ public class MemberController {
 
     /* 로그인 */
     @PostMapping("/login")
-    public BaseResponse<JwtToken> login(@RequestBody @Valid MemberLogin memberLogin) {
-        return new BaseResponse<>(memberService.login(memberLogin));
+    public BaseResponse<JwtToken> login(@RequestBody @Valid MemberLogin memberLogin, HttpServletResponse response) {
+        MemberResponse memberResponse = memberService.login(memberLogin);
+        return new BaseResponse<>(jwtTokenProvider.generateToken(memberResponse.getEmail(), memberResponse.getId(), response));
     }
 
     /**
      * Access 토큰 만료 시 Refresh 토큰으로 재발급 요청
      */
     @PostMapping("/refresh")
-    public BaseResponse<JwtToken> refresh(HttpServletRequest request) {
-        String refreshToken = jwtTokenProvider.resolveToken(request);
-        return new BaseResponse<>(jwtTokenProvider.refreshTokens(refreshToken));
+    public BaseResponse<JwtToken> refresh(HttpServletRequest request, HttpServletResponse response) {
+        return new BaseResponse<>(jwtTokenProvider.reissueRefreshToken(request, response));
     }
 
     /**

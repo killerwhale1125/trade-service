@@ -5,19 +5,11 @@ import carrot.market.common.baseutil.BaseException;
 import carrot.market.member.dto.request.*;
 import carrot.market.member.dto.response.MemberResponse;
 import carrot.market.member.entity.Member;
-import carrot.market.member.repository.MemberJpaRepository;
 import carrot.market.member.repository.MemberRepository;
-import carrot.market.util.holder.AuthenticationHolder;
 import carrot.market.util.holder.PasswordEncoderHolder;
-import carrot.market.util.jwt.JwtToken;
-import carrot.market.util.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,12 +19,8 @@ import static carrot.market.common.baseutil.BaseResponseStatus.*;
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
-    private final MemberJpaRepository memberJpaRepository;
-    private final AuthenticationManagerBuilder authenticationManagerBuilder;
-    private final JwtTokenProvider jwtTokenProvider;
     private final MemberRepository memberRepository;
     private final PasswordEncoderHolder passwordEncoder;
-    private final AuthenticationHolder authenticationHolder;
     private final RedisTemplate<String, String> redisTemplate;
 
     @Override
@@ -53,7 +41,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     public boolean isValidMember(MemberLogin memberLogin, PasswordEncoder passwordEncoder) {
-        Member member = memberJpaRepository.findByEmail(memberLogin.getEmail()).orElseThrow(() -> new BaseException(NOT_EXISTED_USER));
+        Member member = memberRepository.findByEmail(memberLogin.getEmail());
 
         if(!passwordEncoder.matches(memberLogin.getPassword(), member.getPassword())) {
             return false;
@@ -64,14 +52,16 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional
-    public JwtToken login(MemberLogin memberLogin) {
+    public MemberResponse login(MemberLogin memberLogin) {
         Member findMember = memberRepository.findByEmail(memberLogin.getEmail());
 
         if(passwordEncoder.isNotMatchPwd(memberLogin.getPassword(), findMember.getPassword())) {
             throw new BaseException(NOT_MATCHED_PASSWORD);
         }
-
-        return jwtTokenProvider.generateToken(findMember.getEmail());
+        return MemberResponse.builder()
+                .id(findMember.getId())
+                .email(findMember.getEmail())
+                .build();
     }
 
     public void updateMemberProfile(Member member, ProfileRequestDto profileRequest) {
@@ -123,7 +113,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     public Member findMemberByEmail(String email) {
-        return memberJpaRepository.findByEmail(email).orElseThrow(() -> new BaseException(NOT_EXISTED_USER));
+        return memberRepository.findByEmail(email);
     }
 
 }
