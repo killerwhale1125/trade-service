@@ -80,12 +80,12 @@ public class JwtTokenProvider {
     /**
      * JWT 토큰 복호화
      */
-    private Claims parseClaims(String accessToken) {
+    private Claims parseClaims(String token) {
         try {
             return Jwts.parserBuilder()
                     .setSigningKey(jwtProperties.getSecretKey())
                     .build()
-                    .parseClaimsJws(accessToken)
+                    .parseClaimsJws(token)
                     .getBody();
         } catch (ExpiredJwtException e) {
             return e.getClaims();
@@ -134,14 +134,13 @@ public class JwtTokenProvider {
         return refreshToken;
     }
 
-    @RedisTransactional
     public JwtToken reissueRefreshToken(HttpServletRequest request, HttpServletResponse response) {
         /**
          * Refresh 토큰 검증
          * 토큰 값이 존재하는데 검증 실패 시 재 로그인 필요
          */
-        String requestRefreshToken = validate(resolveToken(request));
-        String email = parseClaims(requestRefreshToken).getSubject();
+        String requestRefreshToken = resolveToken(request);
+        String email = validate(requestRefreshToken);
 
         /**
          * Redis에 저장된 Refresh 토큰 조회

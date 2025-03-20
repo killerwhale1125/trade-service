@@ -2,17 +2,18 @@ package carrot.market.util.jwt;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.validation.annotation.Validated;
 
 @Getter
 @Validated
-@ConfigurationProperties(prefix = "security.jwt")
+@ConfigurationProperties("security.jwt")
 public class JwtProperties {
     @NotEmpty
     private final String secretKey;
-    @NotEmpty
+    @NotNull
     private final Token token;
 
     public JwtProperties(String secretKey, Token token) {

@@ -1,6 +1,5 @@
 package carrot.market.util.jwt;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 
 /**
@@ -12,6 +11,5 @@ import lombok.Builder;
  * private final fields 이외의 인스턴스 필드를 선언할 수 없다.
  */
 @Builder
-@AllArgsConstructor
 public record JwtToken (String grantType, String accessToken){
 }
