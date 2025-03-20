@@ -1,10 +1,7 @@
 package carrot.market.config;
 
 import carrot.market.util.RoutingDataSource;
-import com.zaxxer.hikari.HikariDataSource;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -35,32 +32,32 @@ public class DataSourceConfig {
         return DataSourceBuilder.create().build();
     }
 
-    @Bean
-    @ConfigurationProperties(prefix = "spring.datasource.slave")
-    public DataSource slaveDataSource() {
-        return DataSourceBuilder.create().build();
-    }
+//    @Bean
+//    @ConfigurationProperties(prefix = "spring.datasource.slave")
+//    public DataSource slaveDataSource() {
+//        return DataSourceBuilder.create().build();
+//    }
 
-    @Bean
-    public DataSource routingDataSource() {
-        RoutingDataSource routingDataSource = new RoutingDataSource();
-
-        HashMap<Object, Object> dataSourceMap = new HashMap<>();
-        /**
-         * Master에는 Master DB
-         * Slave에는 Slave DB
-         */
-        dataSourceMap.put(MASTER, masterDataSource());
-        dataSourceMap.put(SLAVE, slaveDataSource());
-
-        /**
-         * default MASTER
-         */
-        routingDataSource.setDefaultTargetDataSource(masterDataSource());
-        routingDataSource.setTargetDataSources(dataSourceMap);
-
-        return routingDataSource;
-    }
+//    @Bean
+//    public DataSource routingDataSource() {
+//        RoutingDataSource routingDataSource = new RoutingDataSource();
+//
+//        HashMap<Object, Object> dataSourceMap = new HashMap<>();
+//        /**
+//         * Master에는 Master DB
+//         * Slave에는 Slave DB
+//         */
+//        dataSourceMap.put(MASTER, masterDataSource());
+//        dataSourceMap.put(SLAVE, slaveDataSource());
+//
+//        /**
+//         * default MASTER
+//         */
+//        routingDataSource.setDefaultTargetDataSource(masterDataSource());
+//        routingDataSource.setTargetDataSources(dataSourceMap);
+//
+//        return routingDataSource;
+//    }
 
     /**
      * @Transactional은 실질적인 쿼리의 실행과 상관없이 트랜잭션이 실행되면 무조건 Connection 객체를 확보하는 방식으로
@@ -85,12 +82,12 @@ public class DataSourceConfig {
      * |  org.springframework.boot.autoconfigure.jdbc.DataSourceInitializerInvoker
      * └─────┘
      */
-    @Primary
-    @Bean
-    @DependsOn({"masterDataSource", "slaveDataSource", "routingDataSource"})
-    public DataSource dataSource() {
-        return new LazyConnectionDataSourceProxy(routingDataSource());
-    }
+//    @Primary
+//    @Bean
+//    @DependsOn({"masterDataSource", "slaveDataSource", "routingDataSource"})
+//    public DataSource dataSource() {
+//        return new LazyConnectionDataSourceProxy(routingDataSource());
+//    }
 
     @Bean
     public JdbcTemplate jdbcTemplate(@Qualifier("masterDataSource") DataSource dataSource) {
