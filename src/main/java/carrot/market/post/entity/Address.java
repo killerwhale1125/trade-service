@@ -16,4 +16,8 @@ public class Address {
     private String state;
     private String city;
     private String town;
+
+    public static Address create(String state, String city, String town) {
+        return new Address(state, city, town);
+    }
 }

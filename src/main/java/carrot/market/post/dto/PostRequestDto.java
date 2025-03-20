@@ -1,6 +1,6 @@
 package carrot.market.post.dto;
 
-import carrot.market.member.entity.MemberEntity;
+import carrot.market.member.entity.Member;
 import carrot.market.post.entity.Post;
 import carrot.market.post.entity.TradeStatus;
 import jakarta.validation.constraints.NotEmpty;
@@ -26,24 +26,24 @@ public class PostRequestDto {
     @NotEmpty
     private String category;
 
-    public Post toEntity(MemberEntity memberEntity) {
+    public Post toEntity(Member member) {
         return Post.builder()
                 .title(this.title)
                 .content(this.content)
-                .author(memberEntity)
-                .address(memberEntity.getAddress())
-                .location(memberEntity.getLocation())
+                .author(member)
+                .address(member.getAddress())
+                .location(member.getLocation())
                 .status(TradeStatus.SALE)
                 .build();
     }
 
-    public Post toEntity(MemberEntity memberEntity, String title, String content) {
+    public Post toEntity(Member member, String title, String content) {
         return Post.builder()
                 .title(this.title)
                 .content(this.content)
-                .author(memberEntity)
-                .address(memberEntity.getAddress())
-                .location(memberEntity.getLocation())
+                .author(member)
+                .address(member.getAddress())
+                .location(member.getLocation())
                 .status(TradeStatus.SALE)
                 .build();
     }

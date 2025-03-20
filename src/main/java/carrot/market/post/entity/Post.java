@@ -1,7 +1,7 @@
 package carrot.market.post.entity;
 
 import carrot.market.common.BaseTimeEntity;
-import carrot.market.member.entity.MemberEntity;
+import carrot.market.member.entity.Member;
 import carrot.market.post.dto.PostRequestDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -33,7 +33,7 @@ public class Post extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    private MemberEntity author;
+    private Member author;
 
     @Lob
     private String content;
@@ -55,7 +55,7 @@ public class Post extends BaseTimeEntity {
     private int favoriteCount;
 
     @Builder
-    public Post(String title, TradeStatus status, MemberEntity author,
+    public Post(String title, TradeStatus status, Member author,
                 String content, Address address, Location location) {
         this.title = title;
         this.status = status;
@@ -70,7 +70,7 @@ public class Post extends BaseTimeEntity {
 
     @Builder
     public Post(Long id, String title, Category category, TradeStatus status,
-                MemberEntity author, String content, Address address, Location location,
+                Member author, String content, Address address, Location location,
                 LocalDateTime createdTime, LocalDateTime modifiedTime) {
         this.id = id;
         this.title = title;

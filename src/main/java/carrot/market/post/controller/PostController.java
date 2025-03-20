@@ -1,7 +1,7 @@
 package carrot.market.post.controller;
 
 import carrot.market.common.baseutil.BaseResponse;
-import carrot.market.member.entity.MemberEntity;
+import carrot.market.member.entity.Member;
 import carrot.market.member.service.MemberServiceImpl;
 import carrot.market.post.dto.PostRequestDto;
 import carrot.market.post.dto.PostResponseDto;
@@ -25,9 +25,7 @@ public class PostController {
      */
     @PostMapping
     public BaseResponse<Void> createPost(@RequestBody @Valid PostRequestDto postRequest, Authentication authentication) {
-
-        postService.createNewPost(postRequest, authentication.getName());
-
+        postService.create(postRequest, authentication.getName());
         return new BaseResponse<>();
     }
 
@@ -36,23 +34,18 @@ public class PostController {
      */
     @GetMapping("/{postId}")
     public BaseResponse<PostResponseDto> findPost(@PathVariable Long postId) {
-        Post post = postService.findPostById(postId);
-
-        return new BaseResponse<>(PostResponseDto.of(post));
+        return new BaseResponse<>(postService.findPostById(postId));
     }
 
     /**
      * 게시물 업데이트
      */
     @PutMapping("/{postId}")
-    public BaseResponse<Void> updatePost(@Valid @RequestBody PostRequestDto postRequest,
-                                                 @PathVariable Long postId,
-                                                 Authentication authentication) {
-        MemberEntity memberEntity = memberServiceImpl.findMemberByEmail(authentication.getName());
-        Post post = postService.findPostById(postId);
-
-        postService.updatePost(post, postRequest, memberEntity);
-
+    public BaseResponse<Void> updatePost(
+            @Valid @RequestBody PostRequestDto postRequest,
+             @PathVariable Long postId,
+             Authentication authentication) {
+        postService.update(postRequest, postId, authentication.getName());
         return new BaseResponse<>();
     }
 
@@ -61,11 +54,13 @@ public class PostController {
      */
     @DeleteMapping("/{postId}")
     public BaseResponse<Void> deletePost(@PathVariable Long postId, Authentication authentication) {
-        MemberEntity memberEntity = memberServiceImpl.findMemberByEmail(authentication.getName());
-        Post post = postService.findPostById(postId);
+        postService.remove(postId, authentication.getName());
+        return new BaseResponse<>();
+    }
 
-        postService.removePost(post, memberEntity);
-
+    @PostMapping("redis-test")
+    public BaseResponse<Void> redisTest() {
+        memberServiceImpl.redisTest();
         return new BaseResponse<>();
     }
 }
