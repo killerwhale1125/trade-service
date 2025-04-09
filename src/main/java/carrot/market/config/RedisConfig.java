@@ -14,10 +14,10 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
 public class RedisConfig {
-    @Value("${spring.redis.session.host}")
+    @Value("${spring.redis.cache.host}")
     private String host;
 
-    @Value("${spring.redis.session.port}")
+    @Value("${spring.redis.cache.port}")
     private int port;
 
     /** 세션을 관리할 Factory **/

@@ -2,12 +2,14 @@ package carrot.market.post.service;
 
 import carrot.market.common.annotation.AreaInfoRequired;
 import carrot.market.member.entity.Member;
-import carrot.market.member.repository.MemberRepository;
 import carrot.market.post.dto.AddressRequestDto;
 import carrot.market.post.dto.PostPageResponseDto;
 import carrot.market.post.dto.PostResponseDto;
+import carrot.market.post.dto.PostSearchRequest;
 import carrot.market.post.entity.Address;
+import carrot.market.post.entity.Location;
 import carrot.market.post.entity.Post;
+import carrot.market.post.entity.PostSortType;
 import carrot.market.post.repository.PostJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
@@ -25,7 +27,15 @@ import static carrot.market.config.CacheKeyConfig.POST;
 public class PostSearchService {
 
     private final PostJpaRepository postJpaRepository;
-    private final MemberRepository memberRepository;
+
+    /**
+     * 사용자 위치 기반 통합 필터링 게시물 리스트 조회
+     */
+    @AreaInfoRequired
+    public PostPageResponseDto getPosts(PostSearchRequest postSearchRequest, Member member, Pageable pageable) {
+        Page<Post> posts = postJpaRepository.getPosts(postSearchRequest, member.getAddress(), pageable);
+        return getPostPageRes(posts, pageable);
+    }
 
     /**
      * 회원 주소에 관련하여 게시물 리스트 조회
@@ -40,10 +50,10 @@ public class PostSearchService {
             cacheManager = "redisCacheManager",
             condition = "#pageable.pageNumber == 0" // page가 0일 경우만 캐시 사용
     )
-    public PostPageResponseDto findAllByMemberAddress(Member member, Pageable pageable) {
+    public PostPageResponseDto findAllByMemberAddress(Member member, PostSortType postSortType, Pageable pageable) {
         Address address = member.getAddress();
         Page<Post> posts
-                = postJpaRepository.findAllByMemberAddress(address.getState(), address.getCity(), address.getTown(), pageable);
+                = postJpaRepository.findAllByMemberAddress(address.getState(), address.getCity(), address.getTown(), postSortType, pageable);
         return getPostPageRes(posts, pageable);
     }
 
@@ -57,9 +67,9 @@ public class PostSearchService {
             cacheManager = "redisCacheManager",
             condition = "#pageable.pageNumber == 0"
     )
-    public PostPageResponseDto findAllByAddress(AddressRequestDto addressRequest, Pageable pageable) {
+    public PostPageResponseDto findAllByAddress(AddressRequestDto addressRequest, PostSortType postSortType, Pageable pageable) {
         Page<Post> posts = postJpaRepository
-                .findAllByMemberAddress(addressRequest.getState(), addressRequest.getCity(), addressRequest.getTown(), pageable);
+                .findAllByMemberAddress(addressRequest.getState(), addressRequest.getCity(), addressRequest.getTown(), postSortType, pageable);
         return getPostPageRes(posts, pageable);
     }
 
@@ -91,4 +101,5 @@ public class PostSearchService {
                 .postResponses(response)
                 .build();
     }
+
 }

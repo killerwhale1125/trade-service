@@ -61,4 +61,12 @@ public class PostController {
         memberServiceImpl.redisTest();
         return new BaseResponse<>();
     }
+
+    @GetMapping("/test")
+    public String test() {
+        for (long i = 0; i < 10000000000L; i++) {
+            System.out.println("test : " + i);
+        }
+        return "ok";
+    }
 }

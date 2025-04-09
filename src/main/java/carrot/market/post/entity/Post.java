@@ -5,12 +5,13 @@ import carrot.market.member.entity.Member;
 import carrot.market.post.dto.PostRequestDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 @Getter
 @Entity
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Post extends BaseTimeEntity {
 
     @Id
@@ -45,7 +46,7 @@ public class Post extends BaseTimeEntity {
     private Location location;
 
     @Column(name = "IS_REMOVED")
-    private Boolean removed = false;
+    private boolean removed = false;
 
     @NotNull
     private int viewCount;
