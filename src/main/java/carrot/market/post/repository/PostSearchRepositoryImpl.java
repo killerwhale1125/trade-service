@@ -27,8 +27,10 @@ import static io.micrometer.common.util.StringUtils.isEmpty;
 public class PostSearchRepositoryImpl implements PostSearchRepository {
 
     private final JPAQueryFactory queryFactory;
+    private final EntityManager em;
 
     public PostSearchRepositoryImpl(EntityManager em) {
+        this.em = em;
         this.queryFactory = new JPAQueryFactory(em);
     }
 
@@ -41,10 +43,9 @@ public class PostSearchRepositoryImpl implements PostSearchRepository {
                 .join(post.author, member).fetchJoin()
                 .join(post.category, category).fetchJoin()
                 .where(addressCondition(address.getState(), address.getCity(), address.getTown())
-                                .and(post.category.id.eq(postSearchRequest.getCategoryId()))
-                        .and(post.status.eq(postSearchRequest.getTradeStatus())))
+                                .and(post.category.id.eq(postSearchRequest.getCategoryId())))
                 .offset(pageable.getOffset())
-                .limit(pageable.getPageSize());
+                .limit(pageable.getPageSize() + 1);
 
         switch (postSearchRequest.getPostSortType()) {
             case PRICE_ASC -> query.orderBy(post.price.asc());
@@ -54,7 +55,6 @@ public class PostSearchRepositoryImpl implements PostSearchRepository {
         List<Post> contents = query.fetch();
 
         JPAQuery<Post> countQuery = queryFactory.selectFrom(post)
-                .join(post.category, category)
                 .where(addressCondition(address.getState(), address.getCity(), address.getTown())
                         .and(post.category.id.eq(postSearchRequest.getCategoryId()))
                         .and(post.status.eq(postSearchRequest.getTradeStatus())));

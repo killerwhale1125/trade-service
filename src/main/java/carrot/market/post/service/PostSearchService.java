@@ -7,7 +7,6 @@ import carrot.market.post.dto.PostPageResponseDto;
 import carrot.market.post.dto.PostResponseDto;
 import carrot.market.post.dto.PostSearchRequest;
 import carrot.market.post.entity.Address;
-import carrot.market.post.entity.Location;
 import carrot.market.post.entity.Post;
 import carrot.market.post.entity.PostSortType;
 import carrot.market.post.repository.PostJpaRepository;
@@ -33,8 +32,102 @@ public class PostSearchService {
      */
     @AreaInfoRequired
     public PostPageResponseDto getPosts(PostSearchRequest postSearchRequest, Member member, Pageable pageable) {
-        Page<Post> posts = postJpaRepository.getPosts(postSearchRequest, member.getAddress(), pageable);
+        Address address = member.getAddress();
+        List<Object[]> posts = null;
+        int offset = (int) pageable.getOffset();
+        int pageSize = pageable.getPageSize();
+        switch (postSearchRequest.getPostSortType()) {
+            case PRICE_ASC -> posts = postJpaRepository.findByPriceAscSubQuery(address.getState(),
+                    address.getCity(),
+                    address.getTown(),
+                    postSearchRequest.getCategoryId(),
+                    offset, pageSize + 1);
+            case PRICE_DESC -> posts = postJpaRepository.findByPriceDescSubQuery(address.getState(),
+                    address.getCity(),
+                    address.getTown(),
+                    postSearchRequest.getCategoryId(),
+                    offset, pageSize + 1);
+        }
+
+        boolean hasNext = posts.size() > pageable.getPageSize();
+        if (hasNext) {
+            posts.remove(posts.size() - 1); // 11번째 데이터 제거
+        }
+
+        return PostPageResponseDto.builder()
+                .hasNext(hasNext)
+                .currentPage(pageable.getPageNumber())
+                .postResponses(convertPostMapping(posts))
+                .build();
+    }
+
+    public PostPageResponseDto getPosts(PostSearchRequest postSearchRequest, AddressRequestDto addressRequest, Pageable pageable) {
+        List<Object[]> posts = null;
+        int offset = (int) pageable.getOffset();
+        int pageSize = pageable.getPageSize();
+        switch (postSearchRequest.getPostSortType()) {
+            case PRICE_ASC -> posts = postJpaRepository.findByPriceAscSubQuery(addressRequest.getState(),
+                    addressRequest.getCity(),
+                    addressRequest.getTown(),
+                    postSearchRequest.getCategoryId(),
+                    offset, pageSize + 1);
+            case PRICE_DESC -> posts = postJpaRepository.findByPriceDescSubQuery(addressRequest.getState(),
+                    addressRequest.getCity(),
+                    addressRequest.getTown(),
+                    postSearchRequest.getCategoryId(),
+                    offset, pageSize + 1);
+        }
+
+        boolean hasNext = posts.size() > pageable.getPageSize();
+        if (hasNext) {
+            posts.remove(posts.size() - 1); // 11번째 데이터 제거
+        }
+
+        return PostPageResponseDto.builder()
+                .hasNext(hasNext)
+                .currentPage(pageable.getPageNumber())
+                .postResponses(convertPostMapping(posts))
+                .build();
+    }
+
+    public PostPageResponseDto getPostsCovering(PostSearchRequest postSearchRequest, AddressRequestDto addressRequest, Pageable pageable) {
+        List<Object[]> posts = null;
+        int offset = (int) pageable.getOffset();
+        int pageSize = pageable.getPageSize();
+        switch (postSearchRequest.getPostSortType()) {
+            case PRICE_ASC -> posts = postJpaRepository.findByPriceAscCovering(addressRequest.getState(),
+                    addressRequest.getCity(),
+                    addressRequest.getTown(),
+                    postSearchRequest.getCategoryId(),
+                    offset, pageSize + 1);
+            case PRICE_DESC -> posts = postJpaRepository.findByPriceDescCovering(addressRequest.getState(),
+                    addressRequest.getCity(),
+                    addressRequest.getTown(),
+                    postSearchRequest.getCategoryId(),
+                    offset, pageSize + 1);
+        }
+
+        boolean hasNext = posts.size() > pageable.getPageSize();
+        if (hasNext) {
+            posts.remove(posts.size() - 1); // 11번째 데이터 제거
+        }
+
+        return PostPageResponseDto.builder()
+                .hasNext(hasNext)
+                .currentPage(pageable.getPageNumber())
+                .postResponses(convertPostMapping(posts))
+                .build();
+    }
+
+    public PostPageResponseDto asis(PostSearchRequest postSearchRequest, AddressRequestDto addressRequest, Pageable pageable) {
+        Address address = new Address(addressRequest.getState(), addressRequest.getCity(), addressRequest.getTown());
+        Page<Post> posts = postJpaRepository.getPosts(postSearchRequest, address, pageable);
+
         return getPostPageRes(posts, pageable);
+    }
+
+    private List<PostResponseDto> convertPostMapping(List<Object[]> posts) {
+        return posts.stream().map(PostResponseDto::of).collect(Collectors.toList());
     }
 
     /**
@@ -45,7 +138,7 @@ public class PostSearchService {
     @AreaInfoRequired
     @Cacheable(
             // 파라미터로 받은 Member의 주소 정보를 조합하여 key 지정
-            key = "#member.getAddress().state + '.' + #member.getAddress().city + '.' + #member.getAddress().town", 
+            key = "#member.getAddress().state + '.' + #member.getAddress().city + '.' + #member.getAddress().town",
             value = POST,   // 캐시 이름 지정
             cacheManager = "redisCacheManager",
             condition = "#pageable.pageNumber == 0" // page가 0일 경우만 캐시 사용

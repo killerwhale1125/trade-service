@@ -26,12 +26,36 @@ public class PostSearchController {
     private final MemberServiceImpl memberServiceImpl;
 
     /**
-     * 사용자 위치 기반 통합 조회 필터링 API
+     * 회원 주소 기반 필터링 조회 API
      */
     @GetMapping
     public BaseResponse<PostPageResponseDto> getPosts(PostSearchRequest postSearchRequest, Authentication authentication, Pageable pageable) {
         Member member = memberServiceImpl.findMemberByEmail(authentication.getName());
         return new BaseResponse<>(postSearchService.getPosts(postSearchRequest, member, pageable));
+    }
+
+    /**
+     * 서브쿼리 최적화 테스트 API
+     */
+    @GetMapping("filter")
+    public BaseResponse<PostPageResponseDto> getPosts(PostSearchRequest postSearchRequest, AddressRequestDto addressRequest, Pageable pageable) {
+        return new BaseResponse<>(postSearchService.getPosts(postSearchRequest, addressRequest, pageable));
+    }
+
+    /**
+     * 커버링 인덱스 적용 테스트 API
+     */
+    @GetMapping("covering")
+    public BaseResponse<PostPageResponseDto> getPostsCovering(PostSearchRequest postSearchRequest, AddressRequestDto addressRequest, Pageable pageable) {
+        return new BaseResponse<>(postSearchService.getPostsCovering(postSearchRequest, addressRequest, pageable));
+    }
+
+    /**
+     * 원본 API ( 성능 최적화 안됨 )
+     */
+    @GetMapping("as-is")
+    public BaseResponse<PostPageResponseDto> asis(PostSearchRequest postSearchRequest, AddressRequestDto addressRequest, Pageable pageable) {
+        return new BaseResponse<>(postSearchService.asis(postSearchRequest, addressRequest, pageable));
     }
 
     /**
