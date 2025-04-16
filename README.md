@@ -43,29 +43,35 @@ Java, Spring Boot, Spring AOP, IntelliJ, Gradle, JPA, Querydsl, Redis, Nginx, Do
 
 **문제점**
 
-![image.png](attachment:c6d96710-c579-42b8-ac07-79f8df8787c3:image.png)
+![image](https://github.com/killerwhale1125/trade-service/issues/1#issue-2998664825)
 - 응답 지연(평균 10초 이상) 문제
 - 인덱스 활용이 제대로 이루어지지 않아 Disk I/O 과부하 발생
 
 **서브 쿼리 최적화 및 Vus 2000 부하테스트 결과**
 
-![image.png](attachment:0da7dee1-d2ee-4699-b2b8-eb8799ae7668:image.png)
-![image.png](attachment:bfc19247-3cd5-4e0e-bbd6-1a43e88e2713:image.png)
-![image.png](attachment:163c73fb-200b-4a99-8879-9c929de4b303:image.png)
+![image](https://github.com/killerwhale1125/trade-service/issues/2#issue-2998669420)
+![image.png](https://github.com/killerwhale1125/trade-service/issues/3#issue-2998671359)
+![image.png](https://github.com/killerwhale1125/trade-service/issues/4#issue-2998672655)
 
-![image](https://github.com/user-attachments/assets/8bdc6fc8-68d5-453f-a542-7b309996bca6)
+| 항목              | 결과                       | 향상률         |
+|-------------------|----------------------------|----------------|
+| CPU 사용량        | WAS & DB 20% 동일 병목 X   | ✅              |
+| TPS               | 1.98 k/s (1900개)          | ✅              |
+| Latency           | 80초 이상 → 3 ms           | ✅              |
+| InnoDB Cache Hit  | 100%                        | ✅              |
+| 임시 테이블 생성  | 생성 수 많음               | ❌              |
 
 **결과**
 전체적인 응답 속도 및 Disk I/O는 개선 되었지만, 불필요한 리소스 낭비 발생
 
 **커버링 인덱스 최적화**
 
-![image.png](attachment:7ef4a6f8-666e-4fba-863c-f0b817d04b64:image.png)
-![image.png](attachment:2987b99e-4bbe-443d-9b4e-e553bb73d4b0:image.png)
+![image.png](https://github.com/killerwhale1125/trade-service/issues/5#issue-2998675885)
+
 
 **이전 결과와 비교되는 임시 테이블 사용량**
 
-![image.png](attachment:c164e1de-8854-42ae-9802-b03982cffb44:image.png)
+![image.png](https://github.com/killerwhale1125/trade-service/issues/6#issue-2998676799)
 
 **최종 결과**
 
