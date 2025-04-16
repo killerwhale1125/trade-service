@@ -43,15 +43,18 @@ Java, Spring Boot, Spring AOP, IntelliJ, Gradle, JPA, Querydsl, Redis, Nginx, Do
 
 **문제점**
 
-![image](https://github.com/killerwhale1125/trade-service/issues/1#issue-2998664825)
+![image]([https://github.com/killerwhale1125/trade-service/issues/1#issue-2998664825](https://private-user-images.githubusercontent.com/165141435/434194059-fecf632f-1170-4dd5-9774-b9b95e25239d.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDQ3ODc0NzEsIm5iZiI6MTc0NDc4NzE3MSwicGF0aCI6Ii8xNjUxNDE0MzUvNDM0MTk0MDU5LWZlY2Y2MzJmLTExNzAtNGRkNS05Nzc0LWI5Yjk1ZTI1MjM5ZC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNDE2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDQxNlQwNzA2MTFaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT01ZDQ1NjU4OGQ0NjA0ZDI3NjdhNDA2ZDBjMzE2NGE4OGY4ZmU3YTBiY2EyNzU2Yzc0MjBlY2NhOTgwZTUyMWM2JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.AQEd9HHiteVP9Lskya9UBOZd5Q9ySkkn6cdglxck5RI))
 - 응답 지연(평균 10초 이상) 문제
 - 인덱스 활용이 제대로 이루어지지 않아 Disk I/O 과부하 발생
 
 **서브 쿼리 최적화 및 Vus 2000 부하테스트 결과**
 
-![image](https://github.com/killerwhale1125/trade-service/issues/2#issue-2998669420)
-![image.png](https://github.com/killerwhale1125/trade-service/issues/3#issue-2998671359)
-![image.png](https://github.com/killerwhale1125/trade-service/issues/4#issue-2998672655)
+![image]([https://github.com/killerwhale1125/trade-service/issues/2#issue-2998669420](https://private-user-images.githubusercontent.com/165141435/434194842-f16f2ae9-425b-497e-a467-012e8f07048c.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDQ3ODc0OTMsIm5iZiI6MTc0NDc4NzE5MywicGF0aCI6Ii8xNjUxNDE0MzUvNDM0MTk0ODQyLWYxNmYyYWU5LTQyNWItNDk3ZS1hNDY3LTAxMmU4ZjA3MDQ4Yy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNDE2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDQxNlQwNzA2MzNaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1iNmFlMzFlZjE3YmRjYjhmMWNkY2NjY2UxM2I0NzRmZGQ2NDBmYTFhYmFhNTc1NmYwMzNkZTY0OGU5ZmRjMjQ2JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.dLENsKS3rmNStf_wwiIE090p_YpYv2100p4UfleP-Yo))
+![image.png]([https://github.com/killerwhale1125/trade-service/issues/3#issue-2998671359](https://private-user-images.githubusercontent.com/165141435/434195203-97a450ae-1a17-429e-8ba4-4c2f12f32ad1.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDQ3ODc1MDQsIm5iZiI6MTc0NDc4NzIwNCwicGF0aCI6Ii8xNjUxNDE0MzUvNDM0MTk1MjAzLTk3YTQ1MGFlLTFhMTctNDI5ZS04YmE0LTRjMmYxMmYzMmFkMS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNDE2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDQxNlQwNzA2NDRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0wNzhlNmM1NDRjMjRmMjQyZTkxN2U1ZjE5MzY4OTU2ZjEzOWVkNGQyOTRjMTlmYjg4YzkzNjVjOGUzMTBjZTQ3JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.g_-GNWKmi53IuvKInQpeldhFV0AfzTT5OaPxd3ViEtg))
+
+**임시테이블 생성 부하 발생**
+
+![image.png]([https://github.com/killerwhale1125/trade-service/issues/4#issue-2998672655](https://private-user-images.githubusercontent.com/165141435/434195399-fdcac47c-3c82-4bb4-9e6f-7b6c615d5163.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDQ3ODc1MTYsIm5iZiI6MTc0NDc4NzIxNiwicGF0aCI6Ii8xNjUxNDE0MzUvNDM0MTk1Mzk5LWZkY2FjNDdjLTNjODItNGJiNC05ZTZmLTdiNmM2MTVkNTE2My5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNDE2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDQxNlQwNzA2NTZaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT05NDlmYzQzNDg5M2YxYjYyOGY4ZTY0ZGFlMDA2OTYwMWIwMjhiNmI1ODM2ZGJmNmZhMmI1ODU2NDUyOWQ1YTYyJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.0HVFqSGdRLqADWiH9C9waxSbmUC4uMS1oVrCg0kl6-s))
 
 | 항목              | 결과                       | 향상률         |
 |-------------------|----------------------------|----------------|
@@ -66,16 +69,22 @@ Java, Spring Boot, Spring AOP, IntelliJ, Gradle, JPA, Querydsl, Redis, Nginx, Do
 
 **커버링 인덱스 최적화**
 
-![image.png](https://github.com/killerwhale1125/trade-service/issues/5#issue-2998675885)
+![image.png](https://private-user-images.githubusercontent.com/165141435/434195847-a80a03ba-c904-4315-bf21-9acac86d0b4e.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDQ3ODc1NDcsIm5iZiI6MTc0NDc4NzI0NywicGF0aCI6Ii8xNjUxNDE0MzUvNDM0MTk1ODQ3LWE4MGEwM2JhLWM5MDQtNDMxNS1iZjIxLTlhY2FjODZkMGI0ZS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNDE2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDQxNlQwNzA3MjdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT00N2U0MjJhOTdhMDA1ZTU0MTQ0YWU3NmY5NGI2NTIwN2QyYjY3MzNiOTVhYTU0ZTU2MzJhOWY5M2EzMmUwOWVmJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.L2r9LESZ6wtjYWa6JXQ1FP4Kr3OCXQJMFrpBMgw1VII)
 
 
 **이전 결과와 비교되는 임시 테이블 사용량**
 
-![image.png](https://github.com/killerwhale1125/trade-service/issues/6#issue-2998676799)
+![image.png](https://private-user-images.githubusercontent.com/165141435/434196019-780962b8-ea6d-432a-90d8-b1860427046f.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDQ3ODc1NjEsIm5iZiI6MTc0NDc4NzI2MSwicGF0aCI6Ii8xNjUxNDE0MzUvNDM0MTk2MDE5LTc4MDk2MmI4LWVhNmQtNDMyYS05MGQ4LWIxODYwNDI3MDQ2Zi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNDE2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDQxNlQwNzA3NDFaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1jY2E4MjI2MjQ0OWFlMmFjMzA4ZmRkNWE4MzU5NGU3NWU4YzRhMGY2YTUxNzdjNDlhODkwOTY2ZDg4NWIxYTM1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.iyh73RJDG9ZO7AHYOEDkekS1QPeakX6jxH3D3yW-LUY)
 
 **최종 결과**
 
-![Uploading image.png…]()
+| 항목                         | 기존 쿼리     | 서브 쿼리    | 커버링 인덱스    | 향상률              |
+|------------------------------|---------------|---------------|------------------|---------------------|
+| TPS                          | 테스트 X      | 1.9k/s        | 1.9k/s           | ✅                  |
+| Latency                      | 80초 이상     | 3.925ms       | 3.125ms          | 80초 → 3ms 단축     |
+| 임시 테이블 생성             | 다수 발생     | 빈번          | 거의 없음        | ✅                  |
+| Disk IO                      | 과도함        | 완화됨        | 안정적 유지      | ✅                  |
+| 안정성 (vuser 2000 부하 테스트 기준) | 테스트 불가 | 일부 지연      | 안정적 트래픽 대응 | ✅                  |
 
 
 **3. 자주 변경되지 않는 데이터 성능 향상을 위한 Redis 캐싱과 ScaleOut 성능 개선**
