@@ -14,7 +14,7 @@
 
 ### ✅ 기술 스택
 
-Java, Spring Boot, Spring AOP, IntelliJ, Gradle, JPA, Querydsl, Redis, Nginx, Jenkins, Docker, AWS EC2, RDS MySQL
+Java, Spring Boot, Spring AOP, IntelliJ, Gradle, JPA, Querydsl, Redis, Nginx, Docker, AWS EC2, RDS MySQL
 
 ### ✅ 프로젝트 개선 사항 정리 블로그
 
