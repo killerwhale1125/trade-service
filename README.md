@@ -47,15 +47,21 @@ Java, Spring Boot, Spring AOP, IntelliJ, Gradle, JPA, Querydsl, Redis, Nginx, Do
 - 응답 지연(평균 10초 이상) 문제
 - 인덱스 활용이 제대로 이루어지지 않아 Disk I/O 과부하 발생
 
+<br/>
+
 **서브 쿼리 최적화 및 Vus 2000 부하테스트 결과**
 
 ![image](https://private-user-images.githubusercontent.com/165141435/434194842-f16f2ae9-425b-497e-a467-012e8f07048c.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDQ3ODc3OTUsIm5iZiI6MTc0NDc4NzQ5NSwicGF0aCI6Ii8xNjUxNDE0MzUvNDM0MTk0ODQyLWYxNmYyYWU5LTQyNWItNDk3ZS1hNDY3LTAxMmU4ZjA3MDQ4Yy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNDE2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDQxNlQwNzExMzVaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1mZWQ3ZGI0ZTVkMTQxNjc3NTQzMTU2ZmUwNjQ5NmI3OWE1NzQyMzEzOGJhOTNkZTBjZjU2MjBiY2NiYmM4YWRiJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.DuStW_FrNgKB016jiZFCN2jv5yfmpqEIYHPF4zYdKhU)
 
 ![image](https://private-user-images.githubusercontent.com/165141435/434195203-97a450ae-1a17-429e-8ba4-4c2f12f32ad1.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDQ3ODc4MTMsIm5iZiI6MTc0NDc4NzUxMywicGF0aCI6Ii8xNjUxNDE0MzUvNDM0MTk1MjAzLTk3YTQ1MGFlLTFhMTctNDI5ZS04YmE0LTRjMmYxMmYzMmFkMS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNDE2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDQxNlQwNzExNTNaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT03OTZhMDQ3YmFkODc3NmMxOGQ3YTg2ODNkODg5MTRlNWQyOTNhYTUzNmI0ZDU5ZGFhMWQzODU0ZTVjMTc3NTNmJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.IIYn5l94bLAZAbPXtgaiqknlB7Qk8nn-tnLrvye_mPA)
 
+<br/>
+
 **임시테이블 생성 부하 발생**
 
 ![image](https://private-user-images.githubusercontent.com/165141435/434195399-fdcac47c-3c82-4bb4-9e6f-7b6c615d5163.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDQ3ODc4MjcsIm5iZiI6MTc0NDc4NzUyNywicGF0aCI6Ii8xNjUxNDE0MzUvNDM0MTk1Mzk5LWZkY2FjNDdjLTNjODItNGJiNC05ZTZmLTdiNmM2MTVkNTE2My5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNDE2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDQxNlQwNzEyMDdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0yNzk3NThkZDU0MmZlYTVjZTk2ZDI3MGJlNTVkMWU4N2ZlMTE0ZmZmZmY1Yjk0NTk1MzhkMjFlYWNmZGI4YzU0JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.UdsR_IOYBFqJZSZV3D-rPgpHwhqNrSkCm5zA426FBSo)
+
+<br/>
 
 | 항목              | 결과                       | 향상률         |
 |-------------------|----------------------------|----------------|
@@ -65,17 +71,24 @@ Java, Spring Boot, Spring AOP, IntelliJ, Gradle, JPA, Querydsl, Redis, Nginx, Do
 | InnoDB Cache Hit  | 100%                        | ✅              |
 | 임시 테이블 생성  | 생성 수 많음               | ❌              |
 
+<br/>
+
 **결과**
 전체적인 응답 속도 및 Disk I/O는 개선 되었지만, 불필요한 리소스 낭비 발생
+
+<br/>
 
 **커버링 인덱스 최적화**
 
 ![image](https://private-user-images.githubusercontent.com/165141435/434195847-a80a03ba-c904-4315-bf21-9acac86d0b4e.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDQ3ODc1NDcsIm5iZiI6MTc0NDc4NzI0NywicGF0aCI6Ii8xNjUxNDE0MzUvNDM0MTk1ODQ3LWE4MGEwM2JhLWM5MDQtNDMxNS1iZjIxLTlhY2FjODZkMGI0ZS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNDE2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDQxNlQwNzA3MjdaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT00N2U0MjJhOTdhMDA1ZTU0MTQ0YWU3NmY5NGI2NTIwN2QyYjY3MzNiOTVhYTU0ZTU2MzJhOWY5M2EzMmUwOWVmJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.L2r9LESZ6wtjYWa6JXQ1FP4Kr3OCXQJMFrpBMgw1VII)
 
+<br/>
 
 **이전 결과와 비교되는 임시 테이블 사용량**
 
 ![image](https://private-user-images.githubusercontent.com/165141435/434196019-780962b8-ea6d-432a-90d8-b1860427046f.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDQ3ODc1NjEsIm5iZiI6MTc0NDc4NzI2MSwicGF0aCI6Ii8xNjUxNDE0MzUvNDM0MTk2MDE5LTc4MDk2MmI4LWVhNmQtNDMyYS05MGQ4LWIxODYwNDI3MDQ2Zi5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNDE2JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDQxNlQwNzA3NDFaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1jY2E4MjI2MjQ0OWFlMmFjMzA4ZmRkNWE4MzU5NGU3NWU4YzRhMGY2YTUxNzdjNDlhODkwOTY2ZDg4NWIxYTM1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.iyh73RJDG9ZO7AHYOEDkekS1QPeakX6jxH3D3yW-LUY)
+
+<br/>
 
 **최종 결과**
 
@@ -86,6 +99,8 @@ Java, Spring Boot, Spring AOP, IntelliJ, Gradle, JPA, Querydsl, Redis, Nginx, Do
 | 임시 테이블 생성             | 다수 발생     | 빈번          | 거의 없음        | ✅                  |
 | Disk IO                      | 과도함        | 완화됨        | 안정적 유지      | ✅                  |
 | 안정성 (vuser 2000 부하 테스트 기준) | 테스트 불가 | 일부 지연      | 안정적 트래픽 대응 | ✅                  |
+
+<br/>
 
 
 **3. 자주 변경되지 않는 데이터 성능 향상을 위한 Redis 캐싱과 ScaleOut 성능 개선**
