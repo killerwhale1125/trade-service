@@ -39,7 +39,40 @@ Java, Spring Boot, Spring AOP, IntelliJ, Gradle, JPA, Querydsl, Redis, Nginx, Do
 
 <br/>
 
-**2. 자주 변경되지 않는 데이터 성능 향상을 위한 Redis 캐싱과 ScaleOut 성능 개선**
+**2. 1억건 규모 데이터 상황의 쿼리 튜닝 최적화 과정**
+
+**문제점**
+
+![image.png](attachment:c6d96710-c579-42b8-ac07-79f8df8787c3:image.png)
+- 응답 지연(평균 10초 이상) 문제
+- 인덱스 활용이 제대로 이루어지지 않아 Disk I/O 과부하 발생
+
+**서브 쿼리 최적화 및 Vus 2000 부하테스트 결과**
+
+![image.png](attachment:0da7dee1-d2ee-4699-b2b8-eb8799ae7668:image.png)
+![image.png](attachment:bfc19247-3cd5-4e0e-bbd6-1a43e88e2713:image.png)
+![image.png](attachment:163c73fb-200b-4a99-8879-9c929de4b303:image.png)
+
+![image](https://github.com/user-attachments/assets/8bdc6fc8-68d5-453f-a542-7b309996bca6)
+
+**결과**
+전체적인 응답 속도 및 Disk I/O는 개선 되었지만, 불필요한 리소스 낭비 발생
+
+**커버링 인덱스 최적화**
+
+![image.png](attachment:7ef4a6f8-666e-4fba-863c-f0b817d04b64:image.png)
+![image.png](attachment:2987b99e-4bbe-443d-9b4e-e553bb73d4b0:image.png)
+
+**이전 결과와 비교되는 임시 테이블 사용량**
+
+![image.png](attachment:c164e1de-8854-42ae-9802-b03982cffb44:image.png)
+
+**최종 결과**
+
+![Uploading image.png…]()
+
+
+**3. 자주 변경되지 않는 데이터 성능 향상을 위한 Redis 캐싱과 ScaleOut 성능 개선**
 
 **문제점**
 - 메인페이지 조회 요청 시 여러개의 게시물 조회 요청으로 인한 느린 페이지 응답
